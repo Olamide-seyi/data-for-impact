@@ -1,21 +1,19 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "data-for-impact"
+  title: "Data for Impact"
+  description: "Tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: About
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: flatly
     css: styles.css
     toc: true
-
-editor: visual
-
