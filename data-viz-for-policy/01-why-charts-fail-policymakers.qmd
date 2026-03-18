@@ -105,10 +105,6 @@ coverage <- data.frame(
 )
 ```
 
-::: callout-note
-Penta3 coverage figures are from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Values in parentheses (e.g. Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.
-:::
-
 ------------------------------------------------------------------------
 
 ## Step 3 — Inspect the data
