@@ -21,6 +21,48 @@
     "text": "Connect\n\nLinkedIn\nGitHub"
   },
   {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "",
+    "text": "Your chart is technically correct. The analysis behind it is sound. But nothing moves after you present it.\nThis tutorial explains why — and walks through exactly how to fix it using publicly available Nigerian immunisation data and R."
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "",
+    "text": "Your chart is technically correct. The analysis behind it is sound. But nothing moves after you present it.\nThis tutorial explains why — and walks through exactly how to fix it using publicly available Nigerian immunisation data and R."
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "What you will learn",
+    "text": "What you will learn\n\nWhy chart titles are the most powerful design decision in any policy visual\nHow to reframe descriptive labels into decision-driving arguments\nHow to structure visual hierarchy so policymakers read your chart the way you intend\nHow to build and annotate policy-ready charts in R using ggplot2"
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nR and RStudio installed\nBasic familiarity with R\nggplot2 installed — if not run install.packages(\"ggplot2\")"
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-data",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-data",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "The data",
+    "text": "The data\nWe will use publicly available immunisation coverage data from the Nigeria Demographic and Health Survey (DHS). Register free at dhsprogram.com to download it."
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#tutorial",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#tutorial",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Tutorial",
+    "text": "Tutorial\nFull tutorial content publishing Wednesday 19 March 2026.\nFollow along on LinkedIn where I share insights from each tutorial before it drops."
+  },
+  {
     "objectID": "data-viz-for-policy/index.html",
     "href": "data-viz-for-policy/index.html",
     "title": "Data Visualisation for Policy",

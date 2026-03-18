@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Olamide Akeboi">
+<meta name="dcterms.date" content="2026-03-19">
 
-<title>Data Visualisation for Policy – Data for Impact</title>
+<title>Tutorial #1: Why Most Public Health Charts Fail Policymakers – Data for Impact</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,24 +110,54 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem">The problem</a></li>
+  <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What you will learn</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
+  <li><a href="#tutorial" id="toc-tutorial" class="nav-link" data-scroll-target="#tutorial">Tutorial</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Visualisation for Policy</h1>
-<p class="subtitle lead">A practical tutorial series on building charts and maps that drive decisions</p>
-</div>
+<h1 class="title">Tutorial #1: Why Most Public Health Charts Fail Policymakers</h1>
+<p class="subtitle lead">And how to fix yours in R</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">data visualisation</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">policy</div>
+    <div class="quarto-category">beginners</div>
+  </div>
+  </div>
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Olamide Akeboi </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 19, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -135,72 +167,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="hero-banner">
-<p>Most public health charts inform. This series teaches you to build charts that move people.</p>
-<p>Each tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.</p>
-</div>
-<section id="tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="tutorials">Tutorials</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Title</th>
-<th>Level</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="../data-viz-for-policy/01-why-charts-fail-policymakers.html">Why most public health charts fail policymakers</a></td>
-<td>Beginner</td>
-<td>Live</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Structuring a data story for policy audiences</td>
-<td>Beginner</td>
-<td>Coming soon</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Choosing the right chart type for policy data</td>
-<td>Beginner</td>
-<td>Coming soon</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Small multiples and faceted charts in R</td>
-<td>Intermediate</td>
-<td>Coming soon</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Colour, contrast, and accessibility</td>
-<td>Intermediate</td>
-<td>Coming soon</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Annotations and labels with ggplot2</td>
-<td>Intermediate</td>
-<td>Coming soon</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>End-to-end: DHIS2 data to decision-ready dashboard</td>
-<td>Advanced</td>
-<td>Coming soon</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>Building a reusable reporting template in R</td>
-<td>Advanced</td>
-<td>Coming soon</td>
-</tr>
-</tbody>
-</table>
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The problem</h2>
+<p>Your chart is technically correct. The analysis behind it is sound. But nothing moves after you present it.</p>
+<p>This tutorial explains why — and walks through exactly how to fix it using publicly available Nigerian immunisation data and R.</p>
+</section>
+<section id="what-you-will-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-will-learn">What you will learn</h2>
+<ul>
+<li>Why chart titles are the most powerful design decision in any policy visual</li>
+<li>How to reframe descriptive labels into decision-driving arguments</li>
+<li>How to structure visual hierarchy so policymakers read your chart the way you intend</li>
+<li>How to build and annotate policy-ready charts in R using ggplot2</li>
+</ul>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<ul>
+<li>R and RStudio installed</li>
+<li>Basic familiarity with R</li>
+<li>ggplot2 installed — if not run <code>install.packages("ggplot2")</code></li>
+</ul>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The data</h2>
+<p>We will use publicly available immunisation coverage data from the Nigeria Demographic and Health Survey (DHS). Register free at <a href="https://dhsprogram.com">dhsprogram.com</a> to download it.</p>
+</section>
+<section id="tutorial" class="level2">
+<h2 class="anchored" data-anchor-id="tutorial">Tutorial</h2>
+<p><em>Full tutorial content publishing Wednesday 19 March 2026.</em></p>
+<p>Follow along on <a href="https://www.linkedin.com/in/your-linkedin-handle">LinkedIn</a> where I share insights from each tutorial before it drops.</p>
 
 
 </section>
