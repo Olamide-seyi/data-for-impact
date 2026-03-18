@@ -229,7 +229,7 @@ chart_after <- ggplot(
     subtitle = "States <span style='color:#D85A30'>below national average</span> in orange.",
     x        = NULL,
     y        = "Coverage (%)",
-    caption  = "Source: Nigeria DHS 2023–24 (PR157)"
+    caption  = "Source: Nigeria DHS 2023–24"
   ) +
   theme_minimal(base_size = 11) +
   theme(
