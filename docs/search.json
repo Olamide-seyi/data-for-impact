@@ -4,7 +4,7 @@
     "href": "about.html#olamide-akeboi",
     "title": "About",
     "section": "Olamide Akeboi",
-    "text": "Olamide Akeboi\nI am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
+    "text": "Olamide Akeboi\nI am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
   },
   {
     "objectID": "about.html#what-you-will-find-here",

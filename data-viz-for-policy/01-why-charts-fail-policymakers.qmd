@@ -1,0 +1,38 @@
+---
+title: "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+subtitle: "And how to fix yours in R"
+author: "Olamide Akeboi"
+date: "2026-03-19"
+order: 1
+categories: [data visualisation, R, policy, beginners]
+toc: true
+---
+
+## The problem
+
+Your chart is technically correct. The analysis behind it is sound. But nothing moves after you present it.
+
+This tutorial explains why — and walks through exactly how to fix it using publicly available Nigerian immunisation data and R.
+
+## What you will learn
+
+-   Why chart titles are the most powerful design decision in any policy visual
+-   How to reframe descriptive labels into decision-driving arguments
+-   How to structure visual hierarchy so policymakers read your chart the way you intend
+-   How to build and annotate policy-ready charts in R using ggplot2
+
+## Prerequisites
+
+-   R and RStudio installed
+-   Basic familiarity with R
+-   ggplot2 installed — if not run `install.packages("ggplot2")`
+
+## The data
+
+We will use publicly available immunisation coverage data from the Nigeria Demographic and Health Survey (DHS). Register free at [dhsprogram.com](https://dhsprogram.com) to download it.
+
+## Tutorial
+
+*Full tutorial content publishing Wednesday 19 March 2026.*
+
+Follow along on [LinkedIn](https://www.linkedin.com/in/your-linkedin-handle) where I share insights from each tutorial before it drops.
