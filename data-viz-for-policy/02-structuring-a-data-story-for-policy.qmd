@@ -33,7 +33,7 @@ By the end of this tutorial you will be able to:
 -   Apply the What-So What-Now What framework to structure any policy presentation
 -   Use the Pyramid Principle to lead with your conclusion, not your methodology
 -   Humanise data so numbers connect to real decisions about real people
--   Build a dumbbell chart in R to show vaccination dropout across zones
+-   Build an annotated grouped bar chart in R that highlights two distinct policy problems
 
 ------------------------------------------------------------------------
 
@@ -149,20 +149,31 @@ zone_long <- zone_data %>%
     )
   )
 
+# Order zones by Penta1 coverage descending
+zone_order <- zone_data %>%
+  arrange(desc(penta1)) %>%
+  pull(zone)
+
+zone_long <- zone_long %>%
+  mutate(zone = factor(zone, levels = zone_order))
+
 # What chart — shows the pattern without interpretation
 chart_what <- ggplot(
   zone_long,
   aes(
-    x    = reorder(zone, -coverage),
+    x    = zone,
     y    = coverage,
     fill = dose
   )
 ) +
-  geom_col(position = "dodge", width = 0.7) +
+  geom_col(
+    position = position_dodge(width = 0),
+    width    = 0.7
+  ) +
   scale_fill_manual(
     values = c(
-      "Penta1 (first dose)" = "#A89EDB",
-      "Penta3 (third dose)" = "#534AB7"
+      "Penta1 (first dose)" = "#534AB7",
+      "Penta3 (third dose)" = "#A89EDB"
     )
   ) +
   scale_y_continuous(
@@ -185,183 +196,151 @@ chart_what <- ggplot(
 chart_what
 ```
 
-This chart answers What. It shows Penta1 and Penta3 coverage side by side. But it forces the reader to mentally calculate the gap between the two bars — exactly the kind of cognitive work we should be doing for them.
+This chart answers What. It shows Penta1 and Penta3 coverage side by side for each zone. But it leaves the reader to figure out the implication — and labels nothing about what it means for decisions.
 
 ### So What? — The interpretation
 
-A grouped bar chart asks the reader to calculate the dropout. A dumbbell chart shows it directly — the orange dot is where children end up (Penta3), the purple dot is where they started (Penta1), and the line between them is the gap. The reader sees the argument before reading a single word.
+Now we rebuild the same chart to answer So What. We add three things: background highlights on the two zones with distinct problems, dropout gap annotations, and problem labels in the legend so the reader understands the argument before studying a single bar.
 
 ```{r}
 #| fig-height: 6
 
-# Prepare data with highlight flags
-zone_plot <- zone_data %>%
-  mutate(
-    highlight = zone %in% c("North West", "South East"),
-    problem   = case_when(
-      zone == "North West" ~ "Access problem",
-      zone == "South East" ~ "Continuity problem",
-      TRUE                 ~ ""
-    )
-  ) %>%
-  pivot_longer(
-    cols      = c(penta1, penta3),
-    names_to  = "dose",
-    values_to = "coverage"
-  ) %>%
-  mutate(
-    dose = case_when(
-      dose == "penta1" ~ "Penta1",
-      dose == "penta3" ~ "Penta3"
-    ),
-    dose = factor(dose, levels = c("Penta1", "Penta3"))
-  )
-
-# Zone order — by Penta1 descending
-zone_order <- zone_data %>%
-  arrange(desc(penta1)) %>%
-  pull(zone)
-
-zone_plot <- zone_plot %>%
+# Set zone factor order
+zone_data <- zone_data %>%
   mutate(zone = factor(zone, levels = zone_order))
 
-# Zone positions for rectangles (zones are 1-6 on x axis)
-nw_pos <- which(zone_order == "North West")
-se_pos <- which(zone_order == "South East")
+zone_long <- zone_long %>%
+  mutate(zone = factor(zone, levels = zone_order))
 
-# Build chart
+# Add dropout gap to zone_long for annotations
+zone_long_annotated <- zone_long %>%
+  left_join(
+    zone_data %>% select(zone, dropout, penta1),
+    by = "zone"
+  )
+
+# So What chart
 chart_sowhat <- ggplot(
-  zone_plot,
+  zone_long,
   aes(
     x    = zone,
     y    = coverage,
     fill = dose
   )
 ) +
-  # Highlight rectangles — drawn first so bars sit on top
+  # Background highlight — South East (continuity problem)
   annotate(
     geom  = "rect",
-    xmin  = se_pos - 0.45,
-    xmax  = se_pos + 0.45,
-    ymin  = 0,
-    ymax  = 100,
-    fill  = "#FFF3EE",
-    alpha = 0.8
+    xmin  = 0.5, xmax = 1.5,
+    ymin  = 0,   ymax = 100,
+    fill  = "#D85A30",
+    alpha = 0.08
   ) +
+  # Background highlight — North West (access problem)
   annotate(
     geom  = "rect",
-    xmin  = nw_pos - 0.45,
-    xmax  = nw_pos + 0.45,
-    ymin  = 0,
-    ymax  = 100,
-    fill  = "#EEEDFE",
-    alpha = 0.8
+    xmin  = 5.5, xmax = 6.5,
+    ymin  = 0,   ymax = 100,
+    fill  = "#534AB7",
+    alpha = 0.08
   ) +
   # Bars — touching within each zone
   geom_col(
-    position = position_dodge(width = 0.5),
-    width    = 0.5
+    position = position_dodge(width = 0.75),
+    width    = 0.75
   ) +
-  # Dropout bracket annotations
+  # Dropout gap segments
   geom_segment(
-    data = zone_data %>%
-      mutate(zone = factor(zone, levels = zone_order)),
+    data = zone_data,
     aes(
-      x     = as.numeric(zone) + 0.13,
-      xend  = as.numeric(zone) + 0.13,
+      x     = as.numeric(zone) + 0.19,
+      xend  = as.numeric(zone) + 0.19,
       y     = penta3,
-      yend  = penta1
+      yend  = penta1,
+      group = zone
     ),
-    inherit.aes = FALSE,
-    colour      = "#888888",
-    linewidth   = 0.4
+    colour    = "#AAAAAA",
+    linewidth = 0.5,
+    inherit.aes = FALSE
   ) +
+  # Dropout gap labels
   geom_text(
-    data = zone_data %>%
-      mutate(zone = factor(zone, levels = zone_order)),
+    data = zone_data,
     aes(
-      x     = as.numeric(zone) + 0.22,
-      y     = (penta1 + penta3) / 2,
+      x     = as.numeric(zone) + 0.32,
+      y     = penta3 + (dropout / 2),
       label = paste0(round(dropout, 1), "pp")
     ),
-    inherit.aes = FALSE,
     size        = 2.8,
     colour      = "#888888",
-    hjust       = 0
-  ) +
-  # Problem labels below highlighted zones
-  annotate(
-    geom     = "text",
-    x        = se_pos,
-    y        = -5,
-    label    = "Continuity\nproblem",
-    colour   = "#D85A30",
-    size     = 2.8,
-    fontface = "bold",
-    hjust    = 0.5
-  ) +
-  annotate(
-    geom     = "text",
-    x        = nw_pos,
-    y        = -5,
-    label    = "Access\nproblem",
-    colour   = "#534AB7",
-    size     = 2.8,
-    fontface = "bold",
-    hjust    = 0.5
+    inherit.aes = FALSE
   ) +
   scale_fill_manual(
     values = c(
-      "Penta1" = "#534AB7",
-      "Penta3" = "#A89EDB"
+      "Penta1 (first dose)"                               = "#534AB7",
+      "Penta3 (third dose)"                               = "#A89EDB"
     )
   ) +
   scale_y_continuous(
     labels = label_percent(scale = 1),
-    limits = c(-10, 100),
-    breaks = seq(0, 100, 25)
+    limits = c(0, 105)
   ) +
   labs(
     title    = "**Every zone loses children between first and third dose**",
-    subtitle = "The North West starts lowest. The South East loses the most along the way.",
+    subtitle = "The North West fails at entry. The South East fails at completion. Both need urgent attention.",
     x        = NULL,
     y        = "Coverage (%)",
     fill     = NULL,
-    caption  = "Source: Nigeria DHS 2023–24 (PR157)"
+    caption  = "Source: Nigeria DHS 2023–24 (PR157)\nNote: A small dropout gap in the North West does not indicate strong performance — absolute coverage remains the lowest nationally."
+  ) +
+  # Problem labels as annotations inside the highlighted zones
+  annotate(
+    geom     = "text",
+    x        = 1,
+    y        = 103,
+    label    = "Continuity problem",
+    colour   = "#D85A30",
+    size     = 3,
+    fontface = "bold"
+  ) +
+  annotate(
+    geom     = "text",
+    x        = 6,
+    y        = 103,
+    label    = "Access problem",
+    colour   = "#534AB7",
+    size     = 3,
+    fontface = "bold"
   ) +
   theme_minimal(base_size = 11) +
   theme(
     legend.position = "top",
+    axis.text.x     = element_text(angle = 15, hjust = 1),
     plot.title      = element_markdown(size = 12, lineheight = 1.3),
     plot.subtitle   = element_text(size = 10, colour = "#555555"),
-    plot.caption    = element_text(size = 8, colour = "#999999"),
-    panel.grid.major.x = element_blank()
+    plot.caption    = element_text(size = 7.5, colour = "#999999")
   )
 
 chart_sowhat
 ```
 
-Now the chart answers So What. The active title makes the argument. The dumbbell shows the dropout visually — no calculation required. The gap labels confirm what the eye already sees.
-
-Notice two things:
-
--   The North West has the shortest line — small absolute dropout — but starts so low that even a small gap matters enormously. This is an **access problem**.
--   The South East has the longest line — the biggest absolute dropout — despite the strongest start. This is a **continuity problem**.
-
-The same chart. Two completely different interventions.
+::: callout-note
+A common misreading of this chart: the North West appears to have a small dropout gap (6.4pp) compared to the South East (13.8pp). This does not mean the North West is performing better. The North West starts at 46.1% Penta1 — the lowest entry point in the country. The access problem is so severe that few children enter the system in the first place. The South East starts at 93.1% but loses 13.8 percentage points before completion. These are structurally different problems requiring structurally different responses.
+:::
 
 ### Now What? — The recommendation
 
 The Now What belongs in your spoken narrative, executive summary, or policy brief. Here is what it looks like for this data:
 
-> *"The North West and North East require access interventions — outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions — defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally."*
+> *"The North West has a clear access problem — the lowest Penta1 coverage nationally at 46.1% means children are not entering the immunisation system. The priority intervention here is outreach, demand generation, and community engagement to bring first-time recipients into the system. The South East has a clear continuity problem — strong entry at 93.1% Penta1 but the highest dropout nationally at 13.8 percentage points means children are starting but not finishing. The priority intervention here is defaulter tracing, reminder systems, and caregiver follow-up. The remaining zones — North East, North Central, and South West — present mixed challenges with both moderate access gaps and significant dropout. These require zone-specific diagnostic work before a single intervention type is prescribed. A uniform national strategy will not address these structurally different problems equally."*
 
 Notice what this recommendation does:
 
--   It names the geographies specifically
--   It names the mechanism for each — access vs continuity
--   It makes a clear structural argument — one strategy will not work for both
--   It gives the policymaker something to act on immediately
+-   It names each geography and its specific problem separately
+-   It quantifies the problem — "46.1% Penta1", "13.8 percentage points"
+-   It names the mechanism for each — access vs continuity interventions
+-   It acknowledges complexity in the middle zones rather than oversimplifying
+-   It closes with a structural argument — one strategy will not work for all zones
 
 ------------------------------------------------------------------------
 
@@ -424,7 +403,7 @@ The second framing names the children, names the paradox, and names the opportun
 
 ```{r}
 #| fig-height: 6
-#| fig-width: 12
+#| fig-width: 13
 
 chart_what + chart_sowhat +
   plot_annotation(
@@ -433,10 +412,10 @@ chart_what + chart_sowhat +
       plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
     )
   ) +
-  plot_layout(widths = c(1, 1))
+  plot_layout(widths = c(1, 1.2))
 ```
 
-The left panel shows the data. The right panel makes the argument. The reader should spend ten seconds on the left and the rest of their time on the right.
+The left panel shows the data. The right panel makes the argument. The background highlights, gap annotations, and problem labels do the interpretive work so the policymaker does not have to.
 
 ------------------------------------------------------------------------
 
