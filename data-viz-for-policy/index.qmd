@@ -1,0 +1,25 @@
+---
+title: "Data Visualisation for Policy"
+subtitle: "A practical tutorial series on building charts and maps that drive decisions"
+page-layout: full
+toc: false
+---
+
+::: hero-banner
+Most public health charts inform. This series teaches you to build charts that move people.
+
+Each tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.
+:::
+
+## Tutorials
+
+| \# | Title | Level | Status |
+|----------------|------------------|------------------|---------------------|
+| 1 | [Why most public health charts fail policymakers](01-why-charts-fail-policymakers.qmd) | Beginner | Live |
+| 2 | Structuring a data story for policy audiences | Beginner | Coming soon |
+| 3 | Choosing the right chart type for policy data | Beginner | Coming soon |
+| 4 | Small multiples and faceted charts in R | Intermediate | Coming soon |
+| 5 | Colour, contrast, and accessibility | Intermediate | Coming soon |
+| 6 | Annotations and labels with ggplot2 | Intermediate | Coming soon |
+| 7 | End-to-end: DHIS2 data to decision-ready dashboard | Advanced | Coming soon |
+| 8 | Building a reusable reporting template in R | Advanced | Coming soon |
