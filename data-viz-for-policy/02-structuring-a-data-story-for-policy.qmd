@@ -356,9 +356,9 @@ Before your next policy presentation run through these five questions:
 
 Using your own data, apply the What-So What-Now What framework:
 
--   Build a What chart — descriptive, shows the pattern
--   Build a So What chart — active title, names the implication
--   Write the Now What in one paragraph — specific, actionable, time-bound
+-   Build a What chart: descriptive, shows the pattern
+-   Build a So What chart: active title, names the implication
+-   Write the Now What in one paragraph: specific, actionable, time-bound
 
 Share your before and after in the comments.
 
