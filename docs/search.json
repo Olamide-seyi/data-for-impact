@@ -4,7 +4,28 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "about.html#olamide-akeboi",
+    "href": "about.html#olamide-akeboi",
+    "title": "About",
+    "section": "",
+    "text": "I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "about.html#what-you-will-find-here",
+    "href": "about.html#what-you-will-find-here",
+    "title": "About",
+    "section": "What you will find here",
+    "text": "What you will find here\n\nData Visualisation for Policy — how to build charts and maps that policymakers actually use\nSpatial Analysis for Public Health — coming soon\nAI-Assisted Analysis — coming soon"
+  },
+  {
+    "objectID": "about.html#connect",
+    "href": "about.html#connect",
+    "title": "About",
+    "section": "Connect",
+    "text": "Connect\n\nLinkedIn\nGitHub"
   },
   {
     "objectID": "index.html",
