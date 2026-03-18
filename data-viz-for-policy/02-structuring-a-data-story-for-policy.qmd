@@ -66,7 +66,7 @@ That is not a data problem. It is a structure problem.
 
 ------------------------------------------------------------------------
 
-## The data
+## Data
 
 We will use zonal Penta1 and Penta3 coverage data from the **2023–24 Nigeria Demographic and Health Survey (DHS)**, available at [dhsprogram.com](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf).
 
@@ -449,7 +449,6 @@ Share your before and after in the comments.
 
 ## Further resources
 
--   [The Pyramid Principle — Barbara Minto](https://www.barbaraminto.com/)
 -   [Storytelling with Data — Cole Nussbaumer Knaflic](https://www.storytellingwithdata.com/)
 -   [2023–24 Nigeria DHS Key Indicators Report](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf)
 
