@@ -156,7 +156,7 @@ chart_before <- ggplot(
 chart_before
 ```
 
-Notice the title: *"A label, not an argument."* It tells you what the chart is. It does not tell you what to do about it.
+Notice the title: *"Penta3 Coverage by State"* It tells you what the chart is. It does not tell you what to do about it.
 
 ------------------------------------------------------------------------
 
