@@ -147,7 +147,7 @@ chart_before <- ggplot(
     limits = c(0, 100)
   ) +
   labs(
-    title = "A label, not an argument",
+    title = "Penta3 Coverage by State",
     x     = NULL,
     y     = "Coverage (%)"
   ) +
