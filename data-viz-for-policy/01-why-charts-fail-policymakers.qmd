@@ -2,7 +2,7 @@
 title: "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
 subtitle: "And how to fix yours in R"
 author: "Olamide Akeboi"
-date: "2026-03-19"
+date: "2026-03-23"
 order: 1
 categories: [data visualisation, R, policy, beginners]
 toc: true
