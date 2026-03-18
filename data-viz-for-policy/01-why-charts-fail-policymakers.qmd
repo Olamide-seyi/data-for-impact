@@ -213,7 +213,7 @@ chart_after <- ggplot(
   ) +
   scale_y_continuous(
     labels = label_percent(scale = 1),
-    limits = c(0, 100)
+    limits = c(0, 105)
   ) +
   annotate(
     geom   = "text",
