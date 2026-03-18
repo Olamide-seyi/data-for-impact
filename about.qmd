@@ -7,7 +7,7 @@ page-layout: full
 
 ## Olamide Akeboi
 
-I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.
+I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.
 
 I created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren't.
 
