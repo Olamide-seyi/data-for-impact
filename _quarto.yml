@@ -11,6 +11,7 @@ website:
         text: Home
       - href: about.qmd
         text: About
+  page-navigation: true
 
 format:
   html:
