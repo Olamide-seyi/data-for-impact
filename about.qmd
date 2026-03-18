@@ -3,6 +3,8 @@ title: "About"
 page-layout: full
 ---
 
+![](images/olamide.jpg){width="200px" style="border-radius: 50%; margin-bottom: 1rem;"}
+
 ## Olamide Akeboi
 
 I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.

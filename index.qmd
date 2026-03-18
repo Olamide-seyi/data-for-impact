@@ -2,24 +2,49 @@
 title: "Data for Impact"
 subtitle: "Practical tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
 page-layout: full
+toc: false
 ---
 
-## Welcome
+::: hero-banner
+Turn complex public health data into decisions that matter.
 
-This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.
+Each tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately.
+:::
 
-Each tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately.
+## Tutorial Series
 
-## Series
-
+:::::: series-grid
+::: series-card
 ### Data Visualisation for Policy
 
-How to build charts, maps, and dashboards that policymakers actually use.
+How to build charts, maps, and dashboards that policymakers actually use — not just read.
 
-*8 tutorials — starting March 2026*
+**8 tutorials · Starting March 2026 · R**
+
+[Explore series →](data-viz-for-policy/index.qmd)
+:::
+
+::: {.series-card .coming-soon}
+### Spatial Analysis for Public Health
+
+Mapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.
+
+**Coming soon**
+:::
+
+::: {.series-card .coming-soon}
+### AI-Assisted Analysis
+
+How to use AI tools to accelerate your analytical workflow without losing rigour.
+
+**Coming soon**
+:::
+::::::
 
 ## About the Author
 
-Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, MERL and AI applications in global health.
+::: author-strip
+Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.
 
 [Learn more →](about.qmd)
+:::
