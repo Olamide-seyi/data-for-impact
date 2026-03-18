@@ -1,1 +1,87 @@
-/* css styles */
+/* Hero banner */
+.hero-banner {
+  background-color: #f0eefc;
+  border-left: 4px solid #534AB7;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  color: #2c2a4a;
+}
+
+/* Series grid */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Series cards */
+.series-card {
+  background: #ffffff;
+  border: 1px solid #e0ddf5;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.series-card:hover {
+  box-shadow: 0 4px 16px rgba(83, 74, 183, 0.1);
+}
+
+.series-card h3 {
+  color: #534AB7;
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.series-card a {
+  color: #534AB7;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.series-card a:hover {
+  text-decoration: underline;
+}
+
+.series-card.coming-soon {
+  background: #fafaf9;
+  border-color: #e8e5e0;
+  opacity: 0.75;
+}
+
+.series-card.coming-soon h3 {
+  color: #888;
+}
+
+/* Author strip */
+.author-strip {
+  background: #fafaf9;
+  border-radius: 8px;
+  padding: 1.25rem 1.75rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+  border: 1px solid #e8e5e0;
+}
+
+.author-strip a {
+  color: #534AB7;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Navbar brand */
+.navbar-brand {
+  font-weight: 600;
+  color: #534AB7 !important;
+}
+
+/* Profile photo on about page */
+img[src*="olamide"] {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}

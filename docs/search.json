@@ -1,17 +1,10 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
-  },
-  {
     "objectID": "about.html#olamide-akeboi",
     "href": "about.html#olamide-akeboi",
     "title": "About",
-    "section": "",
-    "text": "I am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
+    "section": "Olamide Akeboi",
+    "text": "Olamide Akeboi\nI am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
   },
   {
     "objectID": "about.html#what-you-will-find-here",
@@ -32,27 +25,20 @@
     "href": "index.html",
     "title": "Data for Impact",
     "section": "",
-    "text": "This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.\nEach tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately."
+    "text": "Turn complex public health data into decisions that matter.\nEach tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately."
   },
   {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
+    "objectID": "index.html#tutorial-series",
+    "href": "index.html#tutorial-series",
     "title": "Data for Impact",
-    "section": "",
-    "text": "This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.\nEach tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately."
-  },
-  {
-    "objectID": "index.html#series",
-    "href": "index.html#series",
-    "title": "Data for Impact",
-    "section": "Series",
-    "text": "Series\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use.\n8 tutorials — starting March 2026"
+    "section": "Tutorial Series",
+    "text": "Tutorial Series\n\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use — not just read.\n8 tutorials · Starting March 2026 · R\nExplore series →\n\n\nSpatial Analysis for Public Health\nMapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.\nComing soon\n\n\nAI-Assisted Analysis\nHow to use AI tools to accelerate your analytical workflow without losing rigour.\nComing soon"
   },
   {
     "objectID": "index.html#about-the-author",
     "href": "index.html#about-the-author",
     "title": "Data for Impact",
     "section": "About the Author",
-    "text": "About the Author\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, MERL and AI applications in global health.\nLearn more →"
+    "text": "About the Author\n\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.\nLearn more →"
   }
 ]
