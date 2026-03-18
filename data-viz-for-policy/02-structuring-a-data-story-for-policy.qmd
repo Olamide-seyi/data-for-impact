@@ -2,7 +2,7 @@
 title: "Tutorial #2: Structuring a Data Story for Policy Audiences"
 subtitle: "How to sequence your findings so policymakers reach the right conclusion before you say a word"
 author: "Olamide Akeboi"
-date: "2026-04-01"
+date: "2026-04-02"
 order: 2
 categories: [data visualisation, R, policy, communication, beginners]
 toc: true
@@ -19,7 +19,7 @@ Your analysis is solid. Your charts are clean. You walk into the room confident.
 
 And then the policymaker asks: "So what does this mean for us?"
 
-You have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order and left the most important question unanswered entirely.
+You have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order — and left the most important question unanswered entirely.
 
 This tutorial is about fixing that. Not the chart. The structure around it.
 
@@ -33,7 +33,7 @@ By the end of this tutorial you will be able to:
 -   Apply the What-So What-Now What framework to structure any policy presentation
 -   Use the Pyramid Principle to lead with your conclusion, not your methodology
 -   Humanise data so numbers connect to real decisions about real people
--   Build a complete, policy-ready data story in R using Nigerian immunisation data
+-   Build a dumbbell chart in R to show vaccination dropout across zones
 
 ------------------------------------------------------------------------
 
@@ -50,13 +50,13 @@ install.packages(c("ggplot2", "ggtext", "patchwork", "scales", "dplyr", "tidyr")
 
 ## Why structure matters more than data
 
-Policymakers are not passive recipients of information. They are active filters constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.
+Policymakers are not passive recipients of information. They are active filters — constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.
 
 Research on how policymakers engage with evidence shows three consistent patterns:
 
 **They are time-poor.** A policymaker reviewing fifteen slides in a thirty-minute meeting has roughly two minutes per slide. They will not read every word. They will scan for the headline and move on.
 
-**They are not subject-matter experts.** Handing a policymaker raw data or complex statistics without interpretation does not inform them, it burdens them. The interpretation is your job, not theirs.
+**They are not subject-matter experts.** Handing a policymaker raw data or complex statistics without interpretation does not inform them — it burdens them. The interpretation is your job, not theirs.
 
 **They filter through a specific set of questions.** Whether they articulate it or not, every policymaker sitting in a data presentation is asking three things: what are the facts, why does this matter to me, and what should I do about it?
 
@@ -66,11 +66,11 @@ That is not a data problem. It is a structure problem.
 
 ------------------------------------------------------------------------
 
-## Data
+## The data
 
 We will use zonal Penta1 and Penta3 coverage data from the **2023–24 Nigeria Demographic and Health Survey (DHS)**, available at [dhsprogram.com](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf).
 
-Penta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout rate — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached; they are under-served.
+Penta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached — they are under-served.
 
 ```{r}
 # Load packages
@@ -91,12 +91,12 @@ zone_data <- data.frame(
   penta3 = c(48.2, 53.0, 39.7, 79.3, 79.6, 72.8)
 ) %>%
   mutate(
-    dropout    = penta1 - penta3,
+    dropout     = penta1 - penta3,
     dropout_pct = round((dropout / penta1) * 100, 1)
   )
 ```
 
-`mutate()` creates new columns. Here we calculate two things: the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started).
+`mutate()` creates new columns. Here we calculate two things — the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started).
 
 ------------------------------------------------------------------------
 
@@ -105,15 +105,14 @@ zone_data <- data.frame(
 Before building any chart, look at what the data is telling you.
 
 ```{r}
-# View the full dataset including dropout calculations
 zone_data
 ```
 
 Take a moment to read the dropout column carefully. Two patterns should immediately stand out:
 
-The North West has the lowest Penta1 coverage nationally; meaning children are not even starting vaccination. This is an access problem.
+The North West has the lowest Penta1 coverage nationally — meaning children are not even entering the vaccination system. This is an **access problem**.
 
-The South East has the highest absolute dropout despite strong Penta1 coverage; meaning children are starting but not finishing. This is a continuity problem.
+The South East has the highest absolute dropout despite the strongest Penta1 coverage — meaning children are starting but not finishing. This is a **continuity problem**.
 
 These are two different policy problems requiring two different interventions. A chart that shows only Penta3 would hide this distinction entirely.
 
@@ -123,11 +122,11 @@ These are two different policy problems requiring two different interventions. A
 
 This is the simplest and most powerful framework for structuring any policy presentation. It maps directly onto the three questions every policymaker is asking.
 
-**What?** Clearly describe the facts. This is the evidence layer.
+**What?** — Clearly describe the facts. This is the evidence layer.
 
-**So What?** Explain the implications. Why does this matter? This is the interpretation layer.
+**So What?** — Explain the implications. Why does this matter? This is the interpretation layer.
 
-**Now What?** Provide a clear, actionable recommendation. This is the decision layer.
+**Now What?** — Provide a clear, actionable recommendation. This is the decision layer.
 
 Let us build a chart for each layer using the same data.
 
@@ -186,80 +185,110 @@ chart_what <- ggplot(
 chart_what
 ```
 
-This chart answers What. It shows Penta1 and Penta3 coverage side by side for each zone. But it leaves the reader to figure out the implication.
+This chart answers What. It shows Penta1 and Penta3 coverage side by side. But it forces the reader to mentally calculate the gap between the two bars — exactly the kind of cognitive work we should be doing for them.
 
 ### So What? — The interpretation
+
+A grouped bar chart asks the reader to calculate the dropout. A dumbbell chart shows it directly — the orange dot is where children end up (Penta3), the purple dot is where they started (Penta1), and the line between them is the gap. The reader sees the argument before reading a single word.
 
 ```{r}
 #| fig-height: 5
 
-# So What chart — active title, highlights the two distinct problems
-chart_sowhat <- ggplot(
-  zone_long,
-  aes(
-    x    = reorder(zone, -coverage),
-    y    = coverage,
-    fill = dose
-  )
-) +
-  geom_col(position = "dodge", width = 0.7) +
-  geom_hline(
-    yintercept = 80,
-    linetype   = "dashed",
-    colour     = "#D85A30",
-    linewidth  = 0.6
+# So What chart — dumbbell using pure ggplot2
+chart_sowhat <- ggplot(zone_data) +
+  # The connecting line
+  geom_segment(
+    aes(
+      x     = penta3,
+      xend  = penta1,
+      y     = reorder(zone, penta1),
+      yend  = reorder(zone, penta1)
+    ),
+    colour    = "#DDDDDD",
+    linewidth = 2
   ) +
-  annotate(
-    geom   = "text",
-    x      = 0.5,
-    y      = 82,
-    label  = "80% target",
-    size   = 3,
+  # Penta3 dot — where children end up
+  geom_point(
+    aes(x = penta3, y = reorder(zone, penta1)),
     colour = "#D85A30",
+    size   = 5
+  ) +
+  # Penta1 dot — where children start
+  geom_point(
+    aes(x = penta1, y = reorder(zone, penta1)),
+    colour = "#534AB7",
+    size   = 5
+  ) +
+  # Gap labels
+  geom_text(
+    aes(
+      x     = penta1 + 2,
+      y     = reorder(zone, penta1),
+      label = paste0(round(dropout, 1), "pp gap")
+    ),
+    size   = 3,
+    colour = "#888888",
     hjust  = 0
   ) +
-  scale_fill_manual(
-    values = c(
-      "Penta1 (first dose)" = "#A89EDB",
-      "Penta3 (third dose)" = "#534AB7"
-    )
-  ) +
-  scale_y_continuous(
+  scale_x_continuous(
     labels = label_percent(scale = 1),
-    limits = c(0, 100)
+    limits = c(0, 110)
+  ) +
+  annotate(
+    geom     = "text",
+    x        = 36,
+    y        = 0.55,
+    label    = "Penta3",
+    colour   = "#D85A30",
+    size     = 3,
+    fontface = "bold"
+  ) +
+  annotate(
+    geom     = "text",
+    x        = 95,
+    y        = 0.55,
+    label    = "Penta1",
+    colour   = "#534AB7",
+    size     = 3,
+    fontface = "bold"
   ) +
   labs(
-    title    = "**Two different problems need two different solutions**",
-    subtitle = "The North West has an access problem. The South East has a dropout problem.",
-    x        = NULL,
-    y        = "Coverage (%)",
-    fill     = NULL,
+    title    = "**Every zone loses children between first and third dose**",
+    subtitle = "The North West starts lowest. The South East loses the most along the way.",
+    x        = "Coverage (%)",
+    y        = NULL,
     caption  = "Source: Nigeria DHS 2023–24 (PR157)"
   ) +
   theme_minimal(base_size = 11) +
   theme(
-    legend.position = "top",
-    axis.text.x     = element_text(angle = 15, hjust = 1),
-    plot.title      = element_markdown(size = 12),
-    plot.subtitle   = element_text(size = 10, colour = "#555555")
+    plot.title    = element_markdown(size = 12, lineheight = 1.3),
+    plot.subtitle = element_text(size = 10, colour = "#555555"),
+    plot.caption  = element_text(size = 8, colour = "#999999")
   )
 
 chart_sowhat
 ```
 
-Now the chart answers So What. The active title names the insight not just what the data shows but what it means for programme design. The subtitle distinguishes the two problems so the policymaker understands immediately that one solution will not fit both zones.
+Now the chart answers So What. The active title makes the argument. The dumbbell shows the dropout visually — no calculation required. The gap labels confirm what the eye already sees.
+
+Notice two things:
+
+-   The North West has the shortest line — small absolute dropout — but starts so low that even a small gap matters enormously. This is an **access problem**.
+-   The South East has the longest line — the biggest absolute dropout — despite the strongest start. This is a **continuity problem**.
+
+The same chart. Two completely different interventions.
 
 ### Now What? — The recommendation
 
-The Now What belongs in your spoken narrative, executive summary, or policy brief but it must be present. Here is what it looks like for this data:
+The Now What belongs in your spoken narrative, executive summary, or policy brief. Here is what it looks like for this data:
 
-> *"The North West and North East require access interventions; outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions; defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally."*
+> *"The North West and North East require access interventions — outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions — defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally."*
 
 Notice what this recommendation does:
 
 -   It names the geographies specifically
--   It names the mechanism for each; access vs continuity interventions
--   It makes a clear structural argument; one strategy will not work for both problems
+-   It names the mechanism for each — access vs continuity
+-   It makes a clear structural argument — one strategy will not work for both
 -   It gives the policymaker something to act on immediately
 
 ------------------------------------------------------------------------
@@ -274,9 +303,14 @@ The Pyramid Principle flips the traditional academic structure. Instead of build
 
 Applied to our data:
 
-**Top — the recommendation:** "Design zone-specific interventions; access strategies for the north, continuity strategies for the south."
+**Top — the recommendation:** "Design zone-specific interventions — access strategies for the north, continuity strategies for the south."
 
-**Middle — key findings:** - The North West has the lowest Penta1 coverage nationally at 46.1% - The South East has the highest dropout rate despite strong Penta1 at 93.1% - No northern zone reaches the 80% Penta3 target
+**Middle — key findings:**
+
+-   Every zone loses children between Penta1 and Penta3
+-   The North West starts lowest at 46.1% Penta1 — an access problem
+-   The South East has the largest absolute dropout at 13.8 percentage points — a continuity problem
+-   No northern zone reaches the 80% Penta3 target
 
 **Base — supporting evidence:** The full zonal breakdown, state-level data, trend analysis over time.
 
@@ -288,7 +322,7 @@ For a policymaker with two minutes per slide, only the top of the pyramid may ge
 
 Numbers alone do not motivate action. Stories do.
 
-Anchor your data with a human reality; name who is affected, what the consequence is, and what is preventable.
+Anchor your data with a human reality — name who is affected, what the consequence is, and what is preventable.
 
 ```{r}
 # Calculate humanised framings for each zone
@@ -296,23 +330,19 @@ zone_data %>%
   mutate(
     unvaccinated_per_100 = round(100 - penta3),
     dropout_per_100      = round(dropout),
-    humanised_access = paste0(
-      zone, ": ", unvaccinated_per_100,
-      " in every 100 children did not complete Penta3"
-    ),
-    humanised_dropout = paste0(
+    humanised = paste0(
       zone, ": ", dropout_per_100,
-      " percentage point gap between first and third dose"
+      " in every 100 children who started vaccination never completed it"
     )
   ) %>%
-  select(zone, penta1, penta3, unvaccinated_per_100, dropout_per_100)
+  select(zone, penta1, penta3, dropout_per_100, humanised)
 ```
 
 Compare these two framings of the South East finding:
 
-**Data only:** "The South East has a Penta1 to Penta3 dropout rate of 13.8 percentage points."
+**Data only:** "The South East has a Penta1 to Penta3 dropout of 13.8 percentage points."
 
-**Humanised:** "In the South East, Nigeria's highest-performing region, 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And they are identifiable."
+**Humanised:** "In the South East — Nigeria's highest-performing region — nearly 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And because they are already in the system, they are findable."
 
 The second framing names the children, names the paradox, and names the opportunity. It gives the policymaker something to act on behalf of — not a percentage point, but a child who started and was lost.
 
@@ -334,6 +364,8 @@ chart_what + chart_sowhat +
   plot_layout(widths = c(1, 1))
 ```
 
+The left panel shows the data. The right panel makes the argument. The reader should spend ten seconds on the left and the rest of their time on the right.
+
 ------------------------------------------------------------------------
 
 ## A checklist before you present
@@ -346,7 +378,7 @@ Before your next policy presentation run through these five questions:
 
 **3. Have I distinguished between different types of problems in the data?** The same indicator can reflect different problems in different geographies. Name them separately.
 
-**4. Is my recommendation specific enough to act on?** "Strengthen immunisation systems" is not a recommendation. "Design defaulter tracing systems in South East LGAs with Penta1 coverage above 80% and dropout above 10%" is.
+**4. Is my recommendation specific enough to act on?** "Strengthen immunisation systems" is not a recommendation. "Design defaulter tracing systems in South East zones with Penta1 above 80% and dropout above 10%" is.
 
 **5. If they read only the title of each chart — have I said enough?** Return to Tutorial #1 if the answer is no.
 
@@ -356,9 +388,9 @@ Before your next policy presentation run through these five questions:
 
 Using your own data, apply the What-So What-Now What framework:
 
--   Build a What chart: descriptive, shows the pattern
--   Build a So What chart: active title, names the implication
--   Write the Now What in one paragraph: specific, actionable, time-bound
+-   Build a What chart — descriptive, shows the pattern
+-   Build a So What chart — active title, names the implication
+-   Write the Now What in one paragraph — specific, actionable, time-bound
 
 Share your before and after in the comments.
 

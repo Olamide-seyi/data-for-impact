@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Olamide Akeboi">
-<meta name="dcterms.date" content="2026-04-01">
+<meta name="dcterms.date" content="2026-04-02">
 
 <title>Tutorial #2: Structuring a Data Story for Policy Audiences – Data for Impact</title>
 <style>
@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What you will learn</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#why-structure-matters-more-than-data" id="toc-why-structure-matters-more-than-data" class="nav-link" data-scroll-target="#why-structure-matters-more-than-data">Why structure matters more than data</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
   <li><a href="#inspect-the-data" id="toc-inspect-the-data" class="nav-link" data-scroll-target="#inspect-the-data">Inspect the data</a></li>
   <li><a href="#framework-1-what-so-what-now-what" id="toc-framework-1-what-so-what-now-what" class="nav-link" data-scroll-target="#framework-1-what-so-what-now-what">Framework 1 — What? So What? Now What?</a>
   <ul class="collapse">
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 1, 2026</p>
+      <p class="date">April 2, 2026</p>
     </div>
   </div>
   
@@ -221,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-problem">The problem</h2>
 <p>Your analysis is solid. Your charts are clean. You walk into the room confident.</p>
 <p>And then the policymaker asks: “So what does this mean for us?”</p>
-<p>You have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order and left the most important question unanswered entirely.</p>
+<p>You have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order — and left the most important question unanswered entirely.</p>
 <p>This tutorial is about fixing that. Not the chart. The structure around it.</p>
 <hr>
 </section>
@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Apply the What-So What-Now What framework to structure any policy presentation</li>
 <li>Use the Pyramid Principle to lead with your conclusion, not your methodology</li>
 <li>Humanise data so numbers connect to real decisions about real people</li>
-<li>Build a complete, policy-ready data story in R using Nigerian immunisation data</li>
+<li>Build a dumbbell chart in R to show vaccination dropout across zones</li>
 </ul>
 <hr>
 </section>
@@ -247,19 +247,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="why-structure-matters-more-than-data" class="level2">
 <h2 class="anchored" data-anchor-id="why-structure-matters-more-than-data">Why structure matters more than data</h2>
-<p>Policymakers are not passive recipients of information. They are active filters constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.</p>
+<p>Policymakers are not passive recipients of information. They are active filters — constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.</p>
 <p>Research on how policymakers engage with evidence shows three consistent patterns:</p>
 <p><strong>They are time-poor.</strong> A policymaker reviewing fifteen slides in a thirty-minute meeting has roughly two minutes per slide. They will not read every word. They will scan for the headline and move on.</p>
-<p><strong>They are not subject-matter experts.</strong> Handing a policymaker raw data or complex statistics without interpretation does not inform them, it burdens them. The interpretation is your job, not theirs.</p>
+<p><strong>They are not subject-matter experts.</strong> Handing a policymaker raw data or complex statistics without interpretation does not inform them — it burdens them. The interpretation is your job, not theirs.</p>
 <p><strong>They filter through a specific set of questions.</strong> Whether they articulate it or not, every policymaker sitting in a data presentation is asking three things: what are the facts, why does this matter to me, and what should I do about it?</p>
 <p>Most analytical presentations answer the first question thoroughly, gesture vaguely at the second, and leave the third entirely to the audience.</p>
 <p>That is not a data problem. It is a structure problem.</p>
 <hr>
 </section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The data</h2>
 <p>We will use zonal Penta1 and Penta3 coverage data from the <strong>2023–24 Nigeria Demographic and Health Survey (DHS)</strong>, available at <a href="https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf">dhsprogram.com</a>.</p>
-<p>Penta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout rate — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached; they are under-served.</p>
+<p>Penta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached — they are under-served.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -279,19 +279,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">penta3 =</span> <span class="fu">c</span>(<span class="fl">48.2</span>, <span class="fl">53.0</span>, <span class="fl">39.7</span>, <span class="fl">79.3</span>, <span class="fl">79.6</span>, <span class="fl">72.8</span>)</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout    =</span> penta1 <span class="sc">-</span> penta3,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout     =</span> penta1 <span class="sc">-</span> penta3,</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout_pct =</span> <span class="fu">round</span>((dropout <span class="sc">/</span> penta1) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><code>mutate()</code> creates new columns. Here we calculate two things: the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started).</p>
+<p><code>mutate()</code> creates new columns. Here we calculate two things — the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started).</p>
 <hr>
 </section>
 <section id="inspect-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="inspect-the-data">Inspect the data</h2>
 <p>Before building any chart, look at what the data is telling you.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the full dataset including dropout calculations</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>zone_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zone_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           zone penta1 penta3 dropout dropout_pct
 1 North Central   60.4   48.2    12.2        20.2
@@ -303,17 +302,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Take a moment to read the dropout column carefully. Two patterns should immediately stand out:</p>
-<p>The North West has the lowest Penta1 coverage nationally; meaning children are not even starting vaccination. This is an access problem.</p>
-<p>The South East has the highest absolute dropout despite strong Penta1 coverage; meaning children are starting but not finishing. This is a continuity problem.</p>
+<p>The North West has the lowest Penta1 coverage nationally — meaning children are not even entering the vaccination system. This is an <strong>access problem</strong>.</p>
+<p>The South East has the highest absolute dropout despite the strongest Penta1 coverage — meaning children are starting but not finishing. This is a <strong>continuity problem</strong>.</p>
 <p>These are two different policy problems requiring two different interventions. A chart that shows only Penta3 would hide this distinction entirely.</p>
 <hr>
 </section>
 <section id="framework-1-what-so-what-now-what" class="level2">
 <h2 class="anchored" data-anchor-id="framework-1-what-so-what-now-what">Framework 1 — What? So What? Now What?</h2>
 <p>This is the simplest and most powerful framework for structuring any policy presentation. It maps directly onto the three questions every policymaker is asking.</p>
-<p><strong>What?</strong> Clearly describe the facts. This is the evidence layer.</p>
-<p><strong>So What?</strong> Explain the implications. Why does this matter? This is the interpretation layer.</p>
-<p><strong>Now What?</strong> Provide a clear, actionable recommendation. This is the decision layer.</p>
+<p><strong>What?</strong> — Clearly describe the facts. This is the evidence layer.</p>
+<p><strong>So What?</strong> — Explain the implications. Why does this matter? This is the interpretation layer.</p>
+<p><strong>Now What?</strong> — Provide a clear, actionable recommendation. This is the decision layer.</p>
 <p>Let us build a chart for each layer using the same data.</p>
 <section id="what-the-evidence" class="level3">
 <h3 class="anchored" data-anchor-id="what-the-evidence">What? — The evidence</h3>
@@ -374,63 +373,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This chart answers What. It shows Penta1 and Penta3 coverage side by side for each zone. But it leaves the reader to figure out the implication.</p>
+<p>This chart answers What. It shows Penta1 and Penta3 coverage side by side. But it forces the reader to mentally calculate the gap between the two bars — exactly the kind of cognitive work we should be doing for them.</p>
 </section>
 <section id="so-what-the-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="so-what-the-interpretation">So What? — The interpretation</h3>
+<p>A grouped bar chart asks the reader to calculate the dropout. A dumbbell chart shows it directly — the orange dot is where children end up (Penta3), the purple dot is where they started (Penta1), and the line between them is the gap. The reader sees the argument before reading a single word.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># So What chart — active title, highlights the two distinct problems</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>chart_sowhat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  zone_long,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x    =</span> <span class="fu">reorder</span>(zone, <span class="sc">-</span>coverage),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y    =</span> coverage,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> dose</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">yintercept =</span> <span class="dv">80</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype   =</span> <span class="st">"dashed"</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour     =</span> <span class="st">"#D85A30"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth  =</span> <span class="fl">0.6</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom   =</span> <span class="st">"text"</span>,</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x      =</span> <span class="fl">0.5</span>,</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y      =</span> <span class="dv">82</span>,</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">label  =</span> <span class="st">"80% target"</span>,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">size   =</span> <span class="dv">3</span>,</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#D85A30"</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust  =</span> <span class="dv">0</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># So What chart — dumbbell using pure ggplot2</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>chart_sowhat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(zone_data) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The connecting line</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">x     =</span> penta3,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend  =</span> penta1,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">y     =</span> <span class="fu">reorder</span>(zone, penta1),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend  =</span> <span class="fu">reorder</span>(zone, penta1)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour    =</span> <span class="st">"#DDDDDD"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">2</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Penta3 dot — where children end up</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> penta3, <span class="at">y =</span> <span class="fu">reorder</span>(zone, penta1)),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#D85A30"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size   =</span> <span class="dv">5</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Penta1 dot — where children start</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> penta1, <span class="at">y =</span> <span class="fu">reorder</span>(zone, penta1)),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#534AB7"</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">size   =</span> <span class="dv">5</span></span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Penta1 (first dose)"</span> <span class="ot">=</span> <span class="st">"#A89EDB"</span>,</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Penta3 (third dose)"</span> <span class="ot">=</span> <span class="st">"#534AB7"</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">"**Two different problems need two different solutions**"</span>,</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The North West has an access problem. The South East has a dropout problem."</span>,</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">"Coverage (%)"</span>,</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill     =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption  =</span> <span class="st">"Source: Nigeria DHS 2023–24 (PR157)"</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x     =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">15</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title      =</span> <span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle   =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"#555555"</span>)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>chart_sowhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gap labels</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">x     =</span> penta1 <span class="sc">+</span> <span class="dv">2</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">y     =</span> <span class="fu">reorder</span>(zone, penta1),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(dropout, <span class="dv">1</span>), <span class="st">"pp gap"</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">size   =</span> <span class="dv">3</span>,</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#888888"</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust  =</span> <span class="dv">0</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">110</span>)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom     =</span> <span class="st">"text"</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">x        =</span> <span class="dv">36</span>,</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">y        =</span> <span class="fl">0.55</span>,</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">label    =</span> <span class="st">"Penta3"</span>,</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour   =</span> <span class="st">"#D85A30"</span>,</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">size     =</span> <span class="dv">3</span>,</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom     =</span> <span class="st">"text"</span>,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">x        =</span> <span class="dv">95</span>,</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">y        =</span> <span class="fl">0.55</span>,</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">label    =</span> <span class="st">"Penta1"</span>,</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour   =</span> <span class="st">"#534AB7"</span>,</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">size     =</span> <span class="dv">3</span>,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">"**Every zone loses children between first and third dose**"</span>,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The North West starts lowest. The South East loses the most along the way."</span>,</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">"Coverage (%)"</span>,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">y        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption  =</span> <span class="st">"Source: Nigeria DHS 2023–24 (PR157)"</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title    =</span> <span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>),</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"#555555"</span>),</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">colour =</span> <span class="st">"#999999"</span>)</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>chart_sowhat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -439,19 +460,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Now the chart answers So What. The active title names the insight not just what the data shows but what it means for programme design. The subtitle distinguishes the two problems so the policymaker understands immediately that one solution will not fit both zones.</p>
+<p>Now the chart answers So What. The active title makes the argument. The dumbbell shows the dropout visually — no calculation required. The gap labels confirm what the eye already sees.</p>
+<p>Notice two things:</p>
+<ul>
+<li>The North West has the shortest line — small absolute dropout — but starts so low that even a small gap matters enormously. This is an <strong>access problem</strong>.</li>
+<li>The South East has the longest line — the biggest absolute dropout — despite the strongest start. This is a <strong>continuity problem</strong>.</li>
+</ul>
+<p>The same chart. Two completely different interventions.</p>
 </section>
 <section id="now-what-the-recommendation" class="level3">
 <h3 class="anchored" data-anchor-id="now-what-the-recommendation">Now What? — The recommendation</h3>
-<p>The Now What belongs in your spoken narrative, executive summary, or policy brief but it must be present. Here is what it looks like for this data:</p>
+<p>The Now What belongs in your spoken narrative, executive summary, or policy brief. Here is what it looks like for this data:</p>
 <blockquote class="blockquote">
-<p><em>“The North West and North East require access interventions; outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions; defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally.”</em></p>
+<p><em>“The North West and North East require access interventions — outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions — defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally.”</em></p>
 </blockquote>
 <p>Notice what this recommendation does:</p>
 <ul>
 <li>It names the geographies specifically</li>
-<li>It names the mechanism for each; access vs continuity interventions</li>
-<li>It makes a clear structural argument; one strategy will not work for both problems</li>
+<li>It names the mechanism for each — access vs continuity</li>
+<li>It makes a clear structural argument — one strategy will not work for both</li>
 <li>It gives the policymaker something to act on immediately</li>
 </ul>
 <hr>
@@ -463,8 +490,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Traditional academic structure:</strong> Context → Data → Analysis → Finding → Recommendation</p>
 <p><strong>Pyramid structure:</strong> Recommendation → Key findings → Supporting evidence</p>
 <p>Applied to our data:</p>
-<p><strong>Top — the recommendation:</strong> “Design zone-specific interventions; access strategies for the north, continuity strategies for the south.”</p>
-<p><strong>Middle — key findings:</strong> - The North West has the lowest Penta1 coverage nationally at 46.1% - The South East has the highest dropout rate despite strong Penta1 at 93.1% - No northern zone reaches the 80% Penta3 target</p>
+<p><strong>Top — the recommendation:</strong> “Design zone-specific interventions — access strategies for the north, continuity strategies for the south.”</p>
+<p><strong>Middle — key findings:</strong></p>
+<ul>
+<li>Every zone loses children between Penta1 and Penta3</li>
+<li>The North West starts lowest at 46.1% Penta1 — an access problem</li>
+<li>The South East has the largest absolute dropout at 13.8 percentage points — a continuity problem</li>
+<li>No northern zone reaches the 80% Penta3 target</li>
+</ul>
 <p><strong>Base — supporting evidence:</strong> The full zonal breakdown, state-level data, trend analysis over time.</p>
 <p>For a policymaker with two minutes per slide, only the top of the pyramid may get read. The Pyramid Principle ensures that if they read only one thing, they read the most important thing.</p>
 <hr>
@@ -472,36 +505,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="framework-3-humanising-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="framework-3-humanising-the-data">Framework 3 — Humanising the data</h2>
 <p>Numbers alone do not motivate action. Stories do.</p>
-<p>Anchor your data with a human reality; name who is affected, what the consequence is, and what is preventable.</p>
+<p>Anchor your data with a human reality — name who is affected, what the consequence is, and what is preventable.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate humanised framings for each zone</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>zone_data <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">unvaccinated_per_100 =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">-</span> penta3),</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout_per_100      =</span> <span class="fu">round</span>(dropout),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">humanised_access =</span> <span class="fu">paste0</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      zone, <span class="st">": "</span>, unvaccinated_per_100,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">" in every 100 children did not complete Penta3"</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">humanised_dropout =</span> <span class="fu">paste0</span>(</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      zone, <span class="st">": "</span>, dropout_per_100,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">" percentage point gap between first and third dose"</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(zone, penta1, penta3, unvaccinated_per_100, dropout_per_100)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">humanised =</span> <span class="fu">paste0</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      zone, <span class="st">": "</span>, dropout_per_100,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">" in every 100 children who started vaccination never completed it"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(zone, penta1, penta3, dropout_per_100, humanised)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           zone penta1 penta3 unvaccinated_per_100 dropout_per_100
-1 North Central   60.4   48.2                   52              12
-2    North East   64.3   53.0                   47              11
-3    North West   46.1   39.7                   60               6
-4    South East   93.1   79.3                   21              14
-5   South South   87.2   79.6                   20               8
-6    South West   84.4   72.8                   27              12</code></pre>
+<pre><code>           zone penta1 penta3 dropout_per_100
+1 North Central   60.4   48.2              12
+2    North East   64.3   53.0              11
+3    North West   46.1   39.7               6
+4    South East   93.1   79.3              14
+5   South South   87.2   79.6               8
+6    South West   84.4   72.8              12
+                                                                           humanised
+1 North Central: 12 in every 100 children who started vaccination never completed it
+2    North East: 11 in every 100 children who started vaccination never completed it
+3     North West: 6 in every 100 children who started vaccination never completed it
+4    South East: 14 in every 100 children who started vaccination never completed it
+5    South South: 8 in every 100 children who started vaccination never completed it
+6    South West: 12 in every 100 children who started vaccination never completed it</code></pre>
 </div>
 </div>
 <p>Compare these two framings of the South East finding:</p>
-<p><strong>Data only:</strong> “The South East has a Penta1 to Penta3 dropout rate of 13.8 percentage points.”</p>
-<p><strong>Humanised:</strong> “In the South East, Nigeria’s highest-performing region, 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And they are identifiable.”</p>
+<p><strong>Data only:</strong> “The South East has a Penta1 to Penta3 dropout of 13.8 percentage points.”</p>
+<p><strong>Humanised:</strong> “In the South East — Nigeria’s highest-performing region — nearly 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And because they are already in the system, they are findable.”</p>
 <p>The second framing names the children, names the paradox, and names the opportunity. It gives the policymaker something to act on behalf of — not a percentage point, but a child who started and was lost.</p>
 <hr>
 </section>
@@ -524,6 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The left panel shows the data. The right panel makes the argument. The reader should spend ten seconds on the left and the rest of their time on the right.</p>
 <hr>
 </section>
 <section id="a-checklist-before-you-present" class="level2">
@@ -532,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>1. Have I answered What, So What, and Now What?</strong> If any layer is missing your presentation is incomplete.</p>
 <p><strong>2. Does my opening statement lead with the conclusion?</strong> If you are building toward your finding you have lost half the room before you get there.</p>
 <p><strong>3. Have I distinguished between different types of problems in the data?</strong> The same indicator can reflect different problems in different geographies. Name them separately.</p>
-<p><strong>4. Is my recommendation specific enough to act on?</strong> “Strengthen immunisation systems” is not a recommendation. “Design defaulter tracing systems in South East LGAs with Penta1 coverage above 80% and dropout above 10%” is.</p>
+<p><strong>4. Is my recommendation specific enough to act on?</strong> “Strengthen immunisation systems” is not a recommendation. “Design defaulter tracing systems in South East zones with Penta1 above 80% and dropout above 10%” is.</p>
 <p><strong>5. If they read only the title of each chart — have I said enough?</strong> Return to Tutorial #1 if the answer is no.</p>
 <hr>
 </section>
@@ -540,9 +577,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
 <p>Using your own data, apply the What-So What-Now What framework:</p>
 <ul>
-<li>Build a What chart: descriptive, shows the pattern</li>
-<li>Build a So What chart: active title, names the implication</li>
-<li>Write the Now What in one paragraph: specific, actionable, time-bound</li>
+<li>Build a What chart — descriptive, shows the pattern</li>
+<li>Build a So What chart — active title, names the implication</li>
+<li>Write the Now What in one paragraph — specific, actionable, time-bound</li>
 </ul>
 <p>Share your before and after in the comments.</p>
 <hr>
