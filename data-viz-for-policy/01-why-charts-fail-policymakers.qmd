@@ -50,7 +50,7 @@ install.packages(c("ggplot2", "ggtext", "patchwork", "scales", "dplyr"))
 
 ------------------------------------------------------------------------
 
-## The data
+## Data
 
 We will use state-level Penta3 coverage estimates from the **2023–24 Nigeria Demographic and Health Survey (DHS)** — specifically the percentage of children aged 12–23 months who received three doses of the pentavalent vaccine, by state.
 
@@ -106,7 +106,7 @@ coverage <- data.frame(
 ```
 
 ::: callout-note
-Penta3 coverage figures are from Table 10 of the 2023–24 Nigeria DHS Key Indicators Report (PR157). Values in parentheses (e.g. Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.
+Penta3 coverage figures are from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Values in parentheses (e.g. Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.
 :::
 
 ------------------------------------------------------------------------
