@@ -21,6 +21,125 @@
     "text": "Connect\n\nLinkedIn\nGitHub"
   },
   {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "",
+    "text": "Your analysis is solid. Your charts are clean. You walk into the room confident.\nAnd then the policymaker asks: “So what does this mean for us?”\nYou have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order and left the most important question unanswered entirely.\nThis tutorial is about fixing that. Not the chart. The structure around it."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#the-problem",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#the-problem",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "",
+    "text": "Your analysis is solid. Your charts are clean. You walk into the room confident.\nAnd then the policymaker asks: “So what does this mean for us?”\nYou have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order and left the most important question unanswered entirely.\nThis tutorial is about fixing that. Not the chart. The structure around it."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#what-you-will-learn",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#what-you-will-learn",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "What you will learn",
+    "text": "What you will learn\nBy the end of this tutorial you will be able to:\n\nExplain why most data presentations fail to drive decisions\nApply the What-So What-Now What framework to structure any policy presentation\nUse the Pyramid Principle to lead with your conclusion, not your methodology\nHumanise data so numbers connect to real decisions about real people\nBuild a complete, policy-ready data story in R using Nigerian immunisation data"
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#prerequisites",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#prerequisites",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nBefore starting, make sure you have completed Tutorial #1 or have the following packages installed:\n\ninstall.packages(c(\"ggplot2\", \"ggtext\", \"patchwork\", \"scales\", \"dplyr\", \"tidyr\"))"
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#why-structure-matters-more-than-data",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#why-structure-matters-more-than-data",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Why structure matters more than data",
+    "text": "Why structure matters more than data\nPolicymakers are not passive recipients of information. They are active filters constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.\nResearch on how policymakers engage with evidence shows three consistent patterns:\nThey are time-poor. A policymaker reviewing fifteen slides in a thirty-minute meeting has roughly two minutes per slide. They will not read every word. They will scan for the headline and move on.\nThey are not subject-matter experts. Handing a policymaker raw data or complex statistics without interpretation does not inform them, it burdens them. The interpretation is your job, not theirs.\nThey filter through a specific set of questions. Whether they articulate it or not, every policymaker sitting in a data presentation is asking three things: what are the facts, why does this matter to me, and what should I do about it?\nMost analytical presentations answer the first question thoroughly, gesture vaguely at the second, and leave the third entirely to the audience.\nThat is not a data problem. It is a structure problem."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#data",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#data",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Data",
+    "text": "Data\nWe will use zonal Penta1 and Penta3 coverage data from the 2023–24 Nigeria Demographic and Health Survey (DHS), available at dhsprogram.com.\nPenta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout rate — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached; they are under-served.\n\n# Load packages\nlibrary(ggplot2)\nlibrary(ggtext)\nlibrary(patchwork)\nlibrary(scales)\nlibrary(dplyr)\nlibrary(tidyr)\n\n# Zonal Penta1 and Penta3 coverage from DHS 2023-24 (PR157)\nzone_data &lt;- data.frame(\n  zone   = c(\n    \"North Central\", \"North East\", \"North West\",\n    \"South East\", \"South South\", \"South West\"\n  ),\n  penta1 = c(60.4, 64.3, 46.1, 93.1, 87.2, 84.4),\n  penta3 = c(48.2, 53.0, 39.7, 79.3, 79.6, 72.8)\n) %&gt;%\n  mutate(\n    dropout    = penta1 - penta3,\n    dropout_pct = round((dropout / penta1) * 100, 1)\n  )\n\nmutate() creates new columns. Here we calculate two things: the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started)."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#inspect-the-data",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#inspect-the-data",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Inspect the data",
+    "text": "Inspect the data\nBefore building any chart, look at what the data is telling you.\n\n# View the full dataset including dropout calculations\nzone_data\n\n           zone penta1 penta3 dropout dropout_pct\n1 North Central   60.4   48.2    12.2        20.2\n2    North East   64.3   53.0    11.3        17.6\n3    North West   46.1   39.7     6.4        13.9\n4    South East   93.1   79.3    13.8        14.8\n5   South South   87.2   79.6     7.6         8.7\n6    South West   84.4   72.8    11.6        13.7\n\n\nTake a moment to read the dropout column carefully. Two patterns should immediately stand out:\nThe North West has the lowest Penta1 coverage nationally; meaning children are not even starting vaccination. This is an access problem.\nThe South East has the highest absolute dropout despite strong Penta1 coverage; meaning children are starting but not finishing. This is a continuity problem.\nThese are two different policy problems requiring two different interventions. A chart that shows only Penta3 would hide this distinction entirely."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-1-what-so-what-now-what",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-1-what-so-what-now-what",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Framework 1 — What? So What? Now What?",
+    "text": "Framework 1 — What? So What? Now What?\nThis is the simplest and most powerful framework for structuring any policy presentation. It maps directly onto the three questions every policymaker is asking.\nWhat? Clearly describe the facts. This is the evidence layer.\nSo What? Explain the implications. Why does this matter? This is the interpretation layer.\nNow What? Provide a clear, actionable recommendation. This is the decision layer.\nLet us build a chart for each layer using the same data.\n\nWhat? — The evidence\n\n# Reshape to long format for grouped bar chart\nzone_long &lt;- zone_data %&gt;%\n  pivot_longer(\n    cols      = c(penta1, penta3),\n    names_to  = \"dose\",\n    values_to = \"coverage\"\n  ) %&gt;%\n  mutate(\n    dose = case_when(\n      dose == \"penta1\" ~ \"Penta1 (first dose)\",\n      dose == \"penta3\" ~ \"Penta3 (third dose)\"\n    )\n  )\n\n# What chart — shows the pattern without interpretation\nchart_what &lt;- ggplot(\n  zone_long,\n  aes(\n    x    = reorder(zone, -coverage),\n    y    = coverage,\n    fill = dose\n  )\n) +\n  geom_col(position = \"dodge\", width = 0.7) +\n  scale_fill_manual(\n    values = c(\n      \"Penta1 (first dose)\" = \"#A89EDB\",\n      \"Penta3 (third dose)\" = \"#534AB7\"\n    )\n  ) +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 100)\n  ) +\n  labs(\n    title   = \"Penta1 and Penta3 coverage by zone, Nigeria 2023–24\",\n    x       = NULL,\n    y       = \"Coverage (%)\",\n    fill    = NULL,\n    caption = \"Source: Nigeria DHS 2023–24 (PR157)\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    legend.position = \"top\",\n    axis.text.x     = element_text(angle = 15, hjust = 1)\n  )\n\nchart_what\n\n\n\n\n\n\n\n\nThis chart answers What. It shows Penta1 and Penta3 coverage side by side for each zone. But it leaves the reader to figure out the implication.\n\n\nSo What? — The interpretation\n\n# So What chart — active title, highlights the two distinct problems\nchart_sowhat &lt;- ggplot(\n  zone_long,\n  aes(\n    x    = reorder(zone, -coverage),\n    y    = coverage,\n    fill = dose\n  )\n) +\n  geom_col(position = \"dodge\", width = 0.7) +\n  geom_hline(\n    yintercept = 80,\n    linetype   = \"dashed\",\n    colour     = \"#D85A30\",\n    linewidth  = 0.6\n  ) +\n  annotate(\n    geom   = \"text\",\n    x      = 0.5,\n    y      = 82,\n    label  = \"80% target\",\n    size   = 3,\n    colour = \"#D85A30\",\n    hjust  = 0\n  ) +\n  scale_fill_manual(\n    values = c(\n      \"Penta1 (first dose)\" = \"#A89EDB\",\n      \"Penta3 (third dose)\" = \"#534AB7\"\n    )\n  ) +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 100)\n  ) +\n  labs(\n    title    = \"**Two different problems need two different solutions**\",\n    subtitle = \"The North West has an access problem. The South East has a dropout problem.\",\n    x        = NULL,\n    y        = \"Coverage (%)\",\n    fill     = NULL,\n    caption  = \"Source: Nigeria DHS 2023–24 (PR157)\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    legend.position = \"top\",\n    axis.text.x     = element_text(angle = 15, hjust = 1),\n    plot.title      = element_markdown(size = 12),\n    plot.subtitle   = element_text(size = 10, colour = \"#555555\")\n  )\n\nchart_sowhat\n\n\n\n\n\n\n\n\nNow the chart answers So What. The active title names the insight not just what the data shows but what it means for programme design. The subtitle distinguishes the two problems so the policymaker understands immediately that one solution will not fit both zones.\n\n\nNow What? — The recommendation\nThe Now What belongs in your spoken narrative, executive summary, or policy brief but it must be present. Here is what it looks like for this data:\n\n“The North West and North East require access interventions; outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions; defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally.”\n\nNotice what this recommendation does:\n\nIt names the geographies specifically\nIt names the mechanism for each; access vs continuity interventions\nIt makes a clear structural argument; one strategy will not work for both problems\nIt gives the policymaker something to act on immediately"
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-2-the-pyramid-principle",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-2-the-pyramid-principle",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Framework 2 — The Pyramid Principle",
+    "text": "Framework 2 — The Pyramid Principle\nThe Pyramid Principle flips the traditional academic structure. Instead of building toward your conclusion through evidence, you lead with your conclusion and support it beneath.\nTraditional academic structure: Context → Data → Analysis → Finding → Recommendation\nPyramid structure: Recommendation → Key findings → Supporting evidence\nApplied to our data:\nTop — the recommendation: “Design zone-specific interventions; access strategies for the north, continuity strategies for the south.”\nMiddle — key findings: - The North West has the lowest Penta1 coverage nationally at 46.1% - The South East has the highest dropout rate despite strong Penta1 at 93.1% - No northern zone reaches the 80% Penta3 target\nBase — supporting evidence: The full zonal breakdown, state-level data, trend analysis over time.\nFor a policymaker with two minutes per slide, only the top of the pyramid may get read. The Pyramid Principle ensures that if they read only one thing, they read the most important thing."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-3-humanising-the-data",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#framework-3-humanising-the-data",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Framework 3 — Humanising the data",
+    "text": "Framework 3 — Humanising the data\nNumbers alone do not motivate action. Stories do.\nAnchor your data with a human reality; name who is affected, what the consequence is, and what is preventable.\n\n# Calculate humanised framings for each zone\nzone_data %&gt;%\n  mutate(\n    unvaccinated_per_100 = round(100 - penta3),\n    dropout_per_100      = round(dropout),\n    humanised_access = paste0(\n      zone, \": \", unvaccinated_per_100,\n      \" in every 100 children did not complete Penta3\"\n    ),\n    humanised_dropout = paste0(\n      zone, \": \", dropout_per_100,\n      \" percentage point gap between first and third dose\"\n    )\n  ) %&gt;%\n  select(zone, penta1, penta3, unvaccinated_per_100, dropout_per_100)\n\n           zone penta1 penta3 unvaccinated_per_100 dropout_per_100\n1 North Central   60.4   48.2                   52              12\n2    North East   64.3   53.0                   47              11\n3    North West   46.1   39.7                   60               6\n4    South East   93.1   79.3                   21              14\n5   South South   87.2   79.6                   20               8\n6    South West   84.4   72.8                   27              12\n\n\nCompare these two framings of the South East finding:\nData only: “The South East has a Penta1 to Penta3 dropout rate of 13.8 percentage points.”\nHumanised: “In the South East, Nigeria’s highest-performing region, 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And they are identifiable.”\nThe second framing names the children, names the paradox, and names the opportunity. It gives the policymaker something to act on behalf of — not a percentage point, but a child who started and was lost."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#putting-it-all-together",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#putting-it-all-together",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Putting it all together",
+    "text": "Putting it all together\n\nchart_what + chart_sowhat +\n  plot_annotation(\n    title = \"Same data. Structured differently. Different decisions.\",\n    theme = theme(\n      plot.title = element_text(size = 14, face = \"bold\", hjust = 0.5)\n    )\n  ) +\n  plot_layout(widths = c(1, 1))"
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#a-checklist-before-you-present",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#a-checklist-before-you-present",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "A checklist before you present",
+    "text": "A checklist before you present\nBefore your next policy presentation run through these five questions:\n1. Have I answered What, So What, and Now What? If any layer is missing your presentation is incomplete.\n2. Does my opening statement lead with the conclusion? If you are building toward your finding you have lost half the room before you get there.\n3. Have I distinguished between different types of problems in the data? The same indicator can reflect different problems in different geographies. Name them separately.\n4. Is my recommendation specific enough to act on? “Strengthen immunisation systems” is not a recommendation. “Design defaulter tracing systems in South East LGAs with Penta1 coverage above 80% and dropout above 10%” is.\n5. If they read only the title of each chart — have I said enough? Return to Tutorial #1 if the answer is no."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#your-turn",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#your-turn",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Your turn",
+    "text": "Your turn\nUsing your own data, apply the What-So What-Now What framework:\n\nBuild a What chart — descriptive, shows the pattern\nBuild a So What chart — active title, names the implication\nWrite the Now What in one paragraph — specific, actionable, time-bound\n\nShare your before and after in the comments."
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#further-resources",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#further-resources",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Further resources",
+    "text": "Further resources\n\nThe Pyramid Principle — Barbara Minto\nStorytelling with Data — Cole Nussbaumer Knaflic\n2023–24 Nigeria DHS Key Indicators Report"
+  },
+  {
+    "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#next-tutorial",
+    "href": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html#next-tutorial",
+    "title": "Tutorial #2: Structuring a Data Story for Policy Audiences",
+    "section": "Next tutorial",
+    "text": "Next tutorial\nTutorial #3: Bar, line, map, or table? Choosing the right chart type for policy data in R\nPublishing Wednesday 9 April 2026."
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html",
+    "href": "data-viz-for-policy/index.html",
+    "title": "Data Visualisation for Policy",
+    "section": "",
+    "text": "Most public health charts inform. This series teaches you to build charts that move people.\nEach tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately."
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html#tutorials",
+    "href": "data-viz-for-policy/index.html#tutorials",
+    "title": "Data Visualisation for Policy",
+    "section": "Tutorials",
+    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nComing soon\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nComing soon\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon"
+  },
+  {
     "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
     "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
     "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
@@ -131,20 +250,6 @@
     "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
     "section": "Next tutorial",
     "text": "Next tutorial\nTutorial #2: Structuring a data story for policy audiences — how to sequence your findings so policymakers reach the right conclusion before you say a word.\nPublishing Wednesday 26 March 2026."
-  },
-  {
-    "objectID": "data-viz-for-policy/index.html",
-    "href": "data-viz-for-policy/index.html",
-    "title": "Data Visualisation for Policy",
-    "section": "",
-    "text": "Most public health charts inform. This series teaches you to build charts that move people.\nEach tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately."
-  },
-  {
-    "objectID": "data-viz-for-policy/index.html#tutorials",
-    "href": "data-viz-for-policy/index.html#tutorials",
-    "title": "Data Visualisation for Policy",
-    "section": "Tutorials",
-    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nComing soon\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nComing soon\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon"
   },
   {
     "objectID": "index.html",

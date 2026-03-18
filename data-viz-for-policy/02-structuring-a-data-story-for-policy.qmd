@@ -1,0 +1,379 @@
+---
+title: "Tutorial #2: Structuring a Data Story for Policy Audiences"
+subtitle: "How to sequence your findings so policymakers reach the right conclusion before you say a word"
+author: "Olamide Akeboi"
+date: "2026-04-02"
+order: 2
+categories: [data visualisation, R, policy, communication, beginners]
+toc: true
+execute:
+  echo: true
+  eval: true
+  warning: false
+  message: false
+---
+
+## The problem
+
+Your analysis is solid. Your charts are clean. You walk into the room confident.
+
+And then the policymaker asks: "So what does this mean for us?"
+
+You have just spent thirty minutes presenting. They should know what it means. But they are asking because your presentation answered the wrong questions in the wrong order and left the most important question unanswered entirely.
+
+This tutorial is about fixing that. Not the chart. The structure around it.
+
+------------------------------------------------------------------------
+
+## What you will learn
+
+By the end of this tutorial you will be able to:
+
+-   Explain why most data presentations fail to drive decisions
+-   Apply the What-So What-Now What framework to structure any policy presentation
+-   Use the Pyramid Principle to lead with your conclusion, not your methodology
+-   Humanise data so numbers connect to real decisions about real people
+-   Build a complete, policy-ready data story in R using Nigerian immunisation data
+
+------------------------------------------------------------------------
+
+## Prerequisites
+
+Before starting, make sure you have completed Tutorial #1 or have the following packages installed:
+
+```{r}
+#| eval: false
+install.packages(c("ggplot2", "ggtext", "patchwork", "scales", "dplyr", "tidyr"))
+```
+
+------------------------------------------------------------------------
+
+## Why structure matters more than data
+
+Policymakers are not passive recipients of information. They are active filters constantly scanning for what is relevant, what is urgent, and what requires a decision from them specifically.
+
+Research on how policymakers engage with evidence shows three consistent patterns:
+
+**They are time-poor.** A policymaker reviewing fifteen slides in a thirty-minute meeting has roughly two minutes per slide. They will not read every word. They will scan for the headline and move on.
+
+**They are not subject-matter experts.** Handing a policymaker raw data or complex statistics without interpretation does not inform them, it burdens them. The interpretation is your job, not theirs.
+
+**They filter through a specific set of questions.** Whether they articulate it or not, every policymaker sitting in a data presentation is asking three things: what are the facts, why does this matter to me, and what should I do about it?
+
+Most analytical presentations answer the first question thoroughly, gesture vaguely at the second, and leave the third entirely to the audience.
+
+That is not a data problem. It is a structure problem.
+
+------------------------------------------------------------------------
+
+## Data
+
+We will use zonal Penta1 and Penta3 coverage data from the **2023–24 Nigeria Demographic and Health Survey (DHS)**, available at [dhsprogram.com](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf).
+
+Penta1 is the first dose of the pentavalent vaccine. Penta3 is the third and final dose. The gap between them — the dropout rate — tells us how many children started vaccination but never completed it. This is one of the most actionable insights in immunisation programming because these children are not unreached; they are under-served.
+
+```{r}
+# Load packages
+library(ggplot2)
+library(ggtext)
+library(patchwork)
+library(scales)
+library(dplyr)
+library(tidyr)
+
+# Zonal Penta1 and Penta3 coverage from DHS 2023-24 (PR157)
+zone_data <- data.frame(
+  zone   = c(
+    "North Central", "North East", "North West",
+    "South East", "South South", "South West"
+  ),
+  penta1 = c(60.4, 64.3, 46.1, 93.1, 87.2, 84.4),
+  penta3 = c(48.2, 53.0, 39.7, 79.3, 79.6, 72.8)
+) %>%
+  mutate(
+    dropout    = penta1 - penta3,
+    dropout_pct = round((dropout / penta1) * 100, 1)
+  )
+```
+
+`mutate()` creates new columns. Here we calculate two things: the absolute dropout (the gap in percentage points between Penta1 and Penta3) and the dropout rate (the proportion of children who started but did not finish, expressed as a percentage of those who started).
+
+------------------------------------------------------------------------
+
+## Inspect the data
+
+Before building any chart, look at what the data is telling you.
+
+```{r}
+# View the full dataset including dropout calculations
+zone_data
+```
+
+Take a moment to read the dropout column carefully. Two patterns should immediately stand out:
+
+The North West has the lowest Penta1 coverage nationally; meaning children are not even starting vaccination. This is an access problem.
+
+The South East has the highest absolute dropout despite strong Penta1 coverage; meaning children are starting but not finishing. This is a continuity problem.
+
+These are two different policy problems requiring two different interventions. A chart that shows only Penta3 would hide this distinction entirely.
+
+------------------------------------------------------------------------
+
+## Framework 1 — What? So What? Now What?
+
+This is the simplest and most powerful framework for structuring any policy presentation. It maps directly onto the three questions every policymaker is asking.
+
+**What?** Clearly describe the facts. This is the evidence layer.
+
+**So What?** Explain the implications. Why does this matter? This is the interpretation layer.
+
+**Now What?** Provide a clear, actionable recommendation. This is the decision layer.
+
+Let us build a chart for each layer using the same data.
+
+### What? — The evidence
+
+```{r}
+#| fig-height: 5
+
+# Reshape to long format for grouped bar chart
+zone_long <- zone_data %>%
+  pivot_longer(
+    cols      = c(penta1, penta3),
+    names_to  = "dose",
+    values_to = "coverage"
+  ) %>%
+  mutate(
+    dose = case_when(
+      dose == "penta1" ~ "Penta1 (first dose)",
+      dose == "penta3" ~ "Penta3 (third dose)"
+    )
+  )
+
+# What chart — shows the pattern without interpretation
+chart_what <- ggplot(
+  zone_long,
+  aes(
+    x    = reorder(zone, -coverage),
+    y    = coverage,
+    fill = dose
+  )
+) +
+  geom_col(position = "dodge", width = 0.7) +
+  scale_fill_manual(
+    values = c(
+      "Penta1 (first dose)" = "#A89EDB",
+      "Penta3 (third dose)" = "#534AB7"
+    )
+  ) +
+  scale_y_continuous(
+    labels = label_percent(scale = 1),
+    limits = c(0, 100)
+  ) +
+  labs(
+    title   = "Penta1 and Penta3 coverage by zone, Nigeria 2023–24",
+    x       = NULL,
+    y       = "Coverage (%)",
+    fill    = NULL,
+    caption = "Source: Nigeria DHS 2023–24 (PR157)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "top",
+    axis.text.x     = element_text(angle = 15, hjust = 1)
+  )
+
+chart_what
+```
+
+This chart answers What. It shows Penta1 and Penta3 coverage side by side for each zone. But it leaves the reader to figure out the implication.
+
+### So What? — The interpretation
+
+```{r}
+#| fig-height: 5
+
+# So What chart — active title, highlights the two distinct problems
+chart_sowhat <- ggplot(
+  zone_long,
+  aes(
+    x    = reorder(zone, -coverage),
+    y    = coverage,
+    fill = dose
+  )
+) +
+  geom_col(position = "dodge", width = 0.7) +
+  geom_hline(
+    yintercept = 80,
+    linetype   = "dashed",
+    colour     = "#D85A30",
+    linewidth  = 0.6
+  ) +
+  annotate(
+    geom   = "text",
+    x      = 0.5,
+    y      = 82,
+    label  = "80% target",
+    size   = 3,
+    colour = "#D85A30",
+    hjust  = 0
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Penta1 (first dose)" = "#A89EDB",
+      "Penta3 (third dose)" = "#534AB7"
+    )
+  ) +
+  scale_y_continuous(
+    labels = label_percent(scale = 1),
+    limits = c(0, 100)
+  ) +
+  labs(
+    title    = "**Two different problems need two different solutions**",
+    subtitle = "The North West has an access problem. The South East has a dropout problem.",
+    x        = NULL,
+    y        = "Coverage (%)",
+    fill     = NULL,
+    caption  = "Source: Nigeria DHS 2023–24 (PR157)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "top",
+    axis.text.x     = element_text(angle = 15, hjust = 1),
+    plot.title      = element_markdown(size = 12),
+    plot.subtitle   = element_text(size = 10, colour = "#555555")
+  )
+
+chart_sowhat
+```
+
+Now the chart answers So What. The active title names the insight not just what the data shows but what it means for programme design. The subtitle distinguishes the two problems so the policymaker understands immediately that one solution will not fit both zones.
+
+### Now What? — The recommendation
+
+The Now What belongs in your spoken narrative, executive summary, or policy brief but it must be present. Here is what it looks like for this data:
+
+> *"The North West and North East require access interventions; outreach, demand generation, and community engagement to bring children into the immunisation system for the first time. The South East requires continuity interventions; defaulter tracing, reminder systems, and caregiver follow-up to bring children who have already started back to complete their series. A single national strategy will not address both problems equally."*
+
+Notice what this recommendation does:
+
+-   It names the geographies specifically
+-   It names the mechanism for each; access vs continuity interventions
+-   It makes a clear structural argument; one strategy will not work for both problems
+-   It gives the policymaker something to act on immediately
+
+------------------------------------------------------------------------
+
+## Framework 2 — The Pyramid Principle
+
+The Pyramid Principle flips the traditional academic structure. Instead of building toward your conclusion through evidence, you lead with your conclusion and support it beneath.
+
+**Traditional academic structure:** Context → Data → Analysis → Finding → Recommendation
+
+**Pyramid structure:** Recommendation → Key findings → Supporting evidence
+
+Applied to our data:
+
+**Top — the recommendation:** "Design zone-specific interventions; access strategies for the north, continuity strategies for the south."
+
+**Middle — key findings:** - The North West has the lowest Penta1 coverage nationally at 46.1% - The South East has the highest dropout rate despite strong Penta1 at 93.1% - No northern zone reaches the 80% Penta3 target
+
+**Base — supporting evidence:** The full zonal breakdown, state-level data, trend analysis over time.
+
+For a policymaker with two minutes per slide, only the top of the pyramid may get read. The Pyramid Principle ensures that if they read only one thing, they read the most important thing.
+
+------------------------------------------------------------------------
+
+## Framework 3 — Humanising the data
+
+Numbers alone do not motivate action. Stories do.
+
+Anchor your data with a human reality; name who is affected, what the consequence is, and what is preventable.
+
+```{r}
+# Calculate humanised framings for each zone
+zone_data %>%
+  mutate(
+    unvaccinated_per_100 = round(100 - penta3),
+    dropout_per_100      = round(dropout),
+    humanised_access = paste0(
+      zone, ": ", unvaccinated_per_100,
+      " in every 100 children did not complete Penta3"
+    ),
+    humanised_dropout = paste0(
+      zone, ": ", dropout_per_100,
+      " percentage point gap between first and third dose"
+    )
+  ) %>%
+  select(zone, penta1, penta3, unvaccinated_per_100, dropout_per_100)
+```
+
+Compare these two framings of the South East finding:
+
+**Data only:** "The South East has a Penta1 to Penta3 dropout rate of 13.8 percentage points."
+
+**Humanised:** "In the South East, Nigeria's highest-performing region, 1 in 7 children who received their first vaccine dose never completed the series. These children are not unreached. They are under-served. And they are identifiable."
+
+The second framing names the children, names the paradox, and names the opportunity. It gives the policymaker something to act on behalf of — not a percentage point, but a child who started and was lost.
+
+------------------------------------------------------------------------
+
+## Putting it all together
+
+```{r}
+#| fig-height: 6
+#| fig-width: 12
+
+chart_what + chart_sowhat +
+  plot_annotation(
+    title = "Same data. Structured differently. Different decisions.",
+    theme = theme(
+      plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+    )
+  ) +
+  plot_layout(widths = c(1, 1))
+```
+
+------------------------------------------------------------------------
+
+## A checklist before you present
+
+Before your next policy presentation run through these five questions:
+
+**1. Have I answered What, So What, and Now What?** If any layer is missing your presentation is incomplete.
+
+**2. Does my opening statement lead with the conclusion?** If you are building toward your finding you have lost half the room before you get there.
+
+**3. Have I distinguished between different types of problems in the data?** The same indicator can reflect different problems in different geographies. Name them separately.
+
+**4. Is my recommendation specific enough to act on?** "Strengthen immunisation systems" is not a recommendation. "Design defaulter tracing systems in South East LGAs with Penta1 coverage above 80% and dropout above 10%" is.
+
+**5. If they read only the title of each chart — have I said enough?** Return to Tutorial #1 if the answer is no.
+
+------------------------------------------------------------------------
+
+## Your turn
+
+Using your own data, apply the What-So What-Now What framework:
+
+-   Build a What chart — descriptive, shows the pattern
+-   Build a So What chart — active title, names the implication
+-   Write the Now What in one paragraph — specific, actionable, time-bound
+
+Share your before and after in the comments.
+
+------------------------------------------------------------------------
+
+## Further resources
+
+-   [The Pyramid Principle — Barbara Minto](https://www.barbaraminto.com/)
+-   [Storytelling with Data — Cole Nussbaumer Knaflic](https://www.storytellingwithdata.com/)
+-   [2023–24 Nigeria DHS Key Indicators Report](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf)
+
+------------------------------------------------------------------------
+
+## Next tutorial
+
+**Tutorial #3: Bar, line, map, or table? Choosing the right chart type for policy data in R**
+
+*Publishing Wednesday 9 April 2026.*
