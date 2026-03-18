@@ -1,11 +1,27 @@
 ---
-title: "data-for-impact"
+title: "Data for Impact"
+subtitle: "Practical tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
+page-layout: full
 ---
 
-This is a Quarto website.
+## Welcome
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.
 
-```{r}
-1 + 1
-```
+Each tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately.
+
+## Series
+
+### Data Visualisation for Policy
+
+How to build charts, maps, and dashboards that policymakers actually use.
+
+*8 tutorials — starting March 2026*
+
+[View series →](data-viz-for-policy/index.qmd)
+
+## About the Author
+
+Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, and AI applications in global health.
+
+[Learn more →](about.qmd)
