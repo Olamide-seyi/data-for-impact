@@ -9,8 +9,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "data-for-impact",
+    "title": "Data for Impact",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.\nEach tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Data for Impact",
+    "section": "",
+    "text": "This is a tutorial series for public health analysts, researchers, and data scientists who want to turn complex data into decisions that matter.\nEach tutorial is hands-on, uses real or publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "index.html#series",
+    "href": "index.html#series",
+    "title": "Data for Impact",
+    "section": "Series",
+    "text": "Series\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use.\n8 tutorials — starting March 2026\nView series →"
+  },
+  {
+    "objectID": "index.html#about-the-author",
+    "href": "index.html#about-the-author",
+    "title": "Data for Impact",
+    "section": "About the Author",
+    "text": "About the Author\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, and AI applications in global health.\nLearn more →"
   }
 ]

@@ -18,10 +18,8 @@ How to build charts, maps, and dashboards that policymakers actually use.
 
 *8 tutorials — starting March 2026*
 
-[View series →](data-viz-for-policy/index.qmd)
-
 ## About the Author
 
-Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, immunisation, Bayesian geospatial methods, and AI applications in global health.
+Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, MERL and AI applications in global health.
 
 [Learn more →](about.qmd)
