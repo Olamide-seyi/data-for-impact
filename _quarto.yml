@@ -11,7 +11,15 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: data-viz-for-policy/index.qmd
+        text: Data Viz for Policy
   page-navigation: true
+  sidebar:
+    - title: "Data Visualisation for Policy"
+      contents:
+        - data-viz-for-policy/index.qmd
+        - data-viz-for-policy/01-why-charts-fail-policymakers.qmd
+        - data-viz-for-policy/02-structuring-a-data-story-for-policy.qmd
 
 format:
   html:
