@@ -200,6 +200,12 @@ chart_after <- ggplot(
     colour     = "#333333",
     linewidth  = 0.6
   ) +
+  geom_text(
+    aes(label = paste0(penta3_coverage, "%")),
+    hjust    = 1.2,
+    size     = 2.8,
+    colour   = "white"
+  ) +
   coord_flip() +
   scale_fill_manual(
     values = c("TRUE" = "#D85A30", "FALSE" = "#1D9E75"),
