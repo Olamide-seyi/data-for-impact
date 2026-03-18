@@ -56,14 +56,15 @@ We will use state-level Penta3 coverage estimates from the **2023–24 Nigeria D
 
 The full report is publicly available at [dhsprogram.com](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf).
 
+Rather than loading a file, we will enter the data directly into R as a data frame. This makes the tutorial fully self-contained — no downloads needed.
+
 ------------------------------------------------------------------------
 
 ## Step 1 — Load your packages
 
-Every R session starts by loading the packages you need. Think of packages as toolboxes, each one gives you a specific set of tools.
+Every R session starts by loading the packages you need. Think of packages as toolboxes — each one gives you a specific set of tools.
 
 ```{r}
-# Load packages
 library(ggplot2)   # for building charts
 library(ggtext)    # for formatted text in chart titles
 library(patchwork) # for combining multiple charts
@@ -77,12 +78,9 @@ Each `library()` call tells R: "I want to use the tools in this package today."
 
 ## Step 2 — Enter the data
 
-We create our dataset using `data.frame()` — R's way of building a table directly in your script.
-
-The coverage values below come from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Enter them exactly as shown:
+We create our dataset using `data.frame()` — R's way of building a table directly in your script. The coverage values come from Table 10 of the 2023–24 Nigeria DHS Key Indicators Report (PR157).
 
 ```{r}
-# Create the dataset
 coverage <- data.frame(
   state = c(
     "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
@@ -108,8 +106,10 @@ coverage <- data.frame(
 ```
 
 ::: callout-note
-Penta3 coverage figures are from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Values in parentheses (e.g. Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.
+Penta3 coverage figures are from Table 10 of the 2023–24 Nigeria DHS Key Indicators Report (PR157). Values in parentheses (e.g. Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.
 :::
+
+------------------------------------------------------------------------
 
 ## Step 3 — Inspect the data
 
@@ -119,15 +119,11 @@ Before building any chart, always look at your data first.
 # View the first few rows
 head(coverage)
 
-# Check dimensions — how many rows and columns?
-nrow(coverage)  # should be 37 (36 states + FCT)
-ncol(coverage)  # should be 2
-
 # Quick summary of coverage values
 summary(coverage$penta3_coverage)
 ```
 
-`summary()` gives you the minimum, maximum, and average coverage values at a glance, useful for understanding the spread before you visualise it.
+`summary()` gives you the minimum, maximum, and average coverage values at a glance — useful for understanding the spread before you visualise it.
 
 ------------------------------------------------------------------------
 
@@ -136,34 +132,31 @@ summary(coverage$penta3_coverage)
 This is the chart most analysts would produce — technically correct, but built for the analyst, not the decision maker.
 
 ```{r}
-# The "before" chart — a label, not an argument
+#| fig-height: 8
 chart_before <- ggplot(
   data = coverage,
   aes(
-    x = reorder(state, penta3_coverage),  # order states from lowest to highest
-    y = penta3_coverage                    # coverage on the y axis
+    x = reorder(state, penta3_coverage),
+    y = penta3_coverage
   )
 ) +
-  geom_col(fill = "#AAAAAA") +            # draw bars in grey
-  coord_flip() +                           # flip so state names are readable
+  geom_col(fill = "#AAAAAA") +
+  coord_flip() +
   scale_y_continuous(
-    labels = label_percent(scale = 1),     # format y axis as percentages
+    labels = label_percent(scale = 1),
     limits = c(0, 100)
   ) +
   labs(
-    title = "Penta3 Coverage by State, Nigeria 2023-24",  # a label
-    x = NULL,
-    y = "Coverage (%)"
+    title = "A label, not an argument",
+    x     = NULL,
+    y     = "Coverage (%)"
   ) +
   theme_minimal(base_size = 11)
 
-# View the chart
 chart_before
 ```
 
-Notice the title: *"Penta3 Coverage by State, Nigeria 2023–24."*
-
-It tells you what the chart is. It does not tell you what to do about it.
+Notice the title: *"A label, not an argument."* It tells you what the chart is. It does not tell you what to do about it.
 
 ------------------------------------------------------------------------
 
@@ -174,54 +167,47 @@ Before building a better chart, we need to identify the decision hiding in the d
 ```{r}
 # Calculate the national average
 national_avg <- mean(coverage$penta3_coverage)
-national_avg  # print the value
+national_avg
 
-# How many states are below the national average?
+# States below the national average
 coverage %>%
   filter(penta3_coverage < national_avg) %>%
   arrange(penta3_coverage)
 ```
 
-`filter()` keeps only rows where the condition is true — here, states where coverage falls below the national average. `arrange()` sorts them from lowest to highest so we can see the worst performers immediately.
+`filter()` keeps only rows where the condition is true. `arrange()` sorts them from lowest to highest so we can see the worst performers immediately.
 
-This is your argument: **a cluster of states — concentrated in the north — are significantly below the national average, and the gap between them and high-performing states is substantial.**
-
-That is a policy statement. Now let us build a chart that says it.
+This is your argument: **a cluster of states — concentrated in the north — are significantly below the national average, and the gap is substantial.**
 
 ------------------------------------------------------------------------
 
 ## Step 6 — Build the "after" chart
 
 ```{r}
+#| fig-height: 8
 # Flag each state as above or below the national average
 coverage <- coverage %>%
-  mutate(
-    below_avg = penta3_coverage < national_avg  # creates a TRUE/FALSE column
-  )
+  mutate(below_avg = penta3_coverage < national_avg)
 
-# The "after" chart — an argument, not a label
 chart_after <- ggplot(
   data = coverage,
   aes(
-    x = reorder(state, penta3_coverage),
-    y = penta3_coverage,
-    fill = below_avg                       # colour bars by above/below average
+    x    = reorder(state, penta3_coverage),
+    y    = penta3_coverage,
+    fill = below_avg
   )
 ) +
   geom_col() +
   geom_hline(
-    yintercept = national_avg,             # reference line at national average
+    yintercept = national_avg,
     linetype   = "dashed",
     colour     = "#333333",
     linewidth  = 0.6
   ) +
   coord_flip() +
   scale_fill_manual(
-    values = c(
-      "TRUE"  = "#D85A30",                 # orange for below-average states
-      "FALSE" = "#1D9E75"                  # green for above-average states
-    ),
-    guide = "none"                         # title explains colour — no legend needed
+    values = c("TRUE" = "#D85A30", "FALSE" = "#1D9E75"),
+    guide  = "none"
   ) +
   scale_y_continuous(
     labels = label_percent(scale = 1),
@@ -231,47 +217,45 @@ chart_after <- ggplot(
     geom   = "text",
     x      = 3,
     y      = national_avg + 3,
-    label  = paste0("National average: ", round(national_avg, 1), "%"),
+    label  = paste0("National avg: ", round(national_avg, 1), "%"),
     hjust  = 0,
-    size   = 3,
+    size   = 2.8,
     colour = "#333333"
   ) +
   labs(
-    title    = "**Northern states are falling behind** — and the gap demands attention",
-    subtitle = "Penta3 coverage by state, Nigeria 2023–24. <span style='color:#D85A30'>States below national average</span> highlighted in orange.",
+    title    = "**Northern states are falling behind**",
+    subtitle = "States <span style='color:#D85A30'>below national average</span> in orange.",
     x        = NULL,
     y        = "Coverage (%)",
-    caption  = "Source: Nigeria Demographic and Health Survey 2023–24 (PR157)"
+    caption  = "Source: Nigeria DHS 2023–24 (PR157)"
   ) +
   theme_minimal(base_size = 11) +
   theme(
     plot.title    = element_markdown(size = 12, lineheight = 1.3),
-    plot.subtitle = element_markdown(size = 10, colour = "#555555"),
+    plot.subtitle = element_markdown(size = 9, colour = "#555555"),
     plot.caption  = element_text(size = 8, colour = "#999999")
   )
 
-# View the chart
 chart_after
 ```
 
-Two things make this chart work differently from the first:
-
-1.  `element_markdown()` from ggtext lets us **bold** words in the title and colour text in the subtitle — so the reader's eye goes exactly where we need it
-2.  The colour split between above and below average means the reader understands the argument before reading a single state name
+Two things make this chart work differently from the first: `element_markdown()` lets us bold the title and colour the subtitle text, and the colour split immediately signals which states need attention.
 
 ------------------------------------------------------------------------
 
 ## Step 7 — Compare before and after
 
 ```{r}
-# Place both charts side by side using patchwork
+#| fig-height: 9
+#| fig-width: 12
 chart_before + chart_after +
   plot_annotation(
     title = "Same data. Different decisions.",
     theme = theme(
       plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
     )
-  )
+  ) +
+  plot_layout(widths = c(1, 1))
 ```
 
 `patchwork` makes combining charts as simple as using `+`. `plot_annotation()` adds an overarching title across both panels.
@@ -288,9 +272,7 @@ chart_before + chart_after +
 | Annotation     | None                | Contextual label         |
 | Subtitle       | None                | Directs the reader's eye |
 
-None of these changes require more analysis. They require a different question before you build the chart:
-
-**What do I need my reader to do with this?**
+None of these changes require more analysis. They require a different question before you build the chart: **what do I need my reader to do with this?**
 
 ------------------------------------------------------------------------
 
@@ -306,10 +288,10 @@ Take a chart you have made recently. Look at the title. Ask yourself:
 
 ## Further resources
 
--   [Fundamentals of Data Visualization — Claus Wilke](https://clauswilke.com/dataviz/) — free online, excellent on chart design principles
--   [ggtext documentation](https://wilkelab.org/ggtext/) — for formatted text in ggplot2
--   [patchwork documentation](https://patchwork.data-imaginist.com/) — for combining charts
--   [2023–24 Nigeria DHS Key Indicators Report](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf) — source data for this tutorial
+-   [Fundamentals of Data Visualization — Claus Wilke](https://clauswilke.com/dataviz/)
+-   [ggtext documentation](https://wilkelab.org/ggtext/)
+-   [patchwork documentation](https://patchwork.data-imaginist.com/)
+-   [2023–24 Nigeria DHS Key Indicators Report](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf)
 
 ------------------------------------------------------------------------
 
