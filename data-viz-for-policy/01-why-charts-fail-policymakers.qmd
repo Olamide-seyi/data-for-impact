@@ -296,8 +296,6 @@ Take a chart you have made recently. Look at the title. Ask yourself:
 
 ------------------------------------------------------------------------
 
-## 
-
 ## Next tutorial
 
 **Tutorial #2: Structuring a data story for policy audiences** — how to sequence your findings so policymakers reach the right conclusion before you say a word.
