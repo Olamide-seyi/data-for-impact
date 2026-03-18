@@ -288,7 +288,6 @@ Take a chart you have made recently. Look at the title. Ask yourself:
 
 ## Further resources
 
--   [Fundamentals of Data Visualization — Claus Wilke](https://clauswilke.com/dataviz/)
 -   [ggtext documentation](https://wilkelab.org/ggtext/)
 -   [patchwork documentation](https://patchwork.data-imaginist.com/)
 -   [2023–24 Nigeria DHS Key Indicators Report](https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf)
