@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -122,7 +157,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What you will learn</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
-  <li><a href="#tutorial" id="toc-tutorial" class="nav-link" data-scroll-target="#tutorial">Tutorial</a></li>
+  <li><a href="#step-1-load-your-packages" id="toc-step-1-load-your-packages" class="nav-link" data-scroll-target="#step-1-load-your-packages">Step 1 — Load your packages</a></li>
+  <li><a href="#step-2-enter-the-data" id="toc-step-2-enter-the-data" class="nav-link" data-scroll-target="#step-2-enter-the-data">Step 2 — Enter the data</a></li>
+  <li><a href="#step-3-inspect-the-data" id="toc-step-3-inspect-the-data" class="nav-link" data-scroll-target="#step-3-inspect-the-data">Step 3 — Inspect the data</a></li>
+  <li><a href="#step-4-build-the-before-chart" id="toc-step-4-build-the-before-chart" class="nav-link" data-scroll-target="#step-4-build-the-before-chart">Step 4 — Build the “before” chart</a></li>
+  <li><a href="#step-5-find-the-argument-in-your-data" id="toc-step-5-find-the-argument-in-your-data" class="nav-link" data-scroll-target="#step-5-find-the-argument-in-your-data">Step 5 — Find the argument in your data</a></li>
+  <li><a href="#step-6-build-the-after-chart" id="toc-step-6-build-the-after-chart" class="nav-link" data-scroll-target="#step-6-build-the-after-chart">Step 6 — Build the “after” chart</a></li>
+  <li><a href="#step-7-compare-before-and-after" id="toc-step-7-compare-before-and-after" class="nav-link" data-scroll-target="#step-7-compare-before-and-after">Step 7 — Compare before and after</a></li>
+  <li><a href="#what-just-changed" id="toc-what-just-changed" class="nav-link" data-scroll-target="#what-just-changed">What just changed</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources">Further resources</a></li>
+  <li><a href="#next-tutorial" id="toc-next-tutorial" class="nav-link" data-scroll-target="#next-tutorial">Next tutorial</a></li>
   </ul>
 </nav>
     </div>
@@ -169,34 +214,301 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="the-problem" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem">The problem</h2>
-<p>Your chart is technically correct. The analysis behind it is sound. But nothing moves after you present it.</p>
-<p>This tutorial explains why — and walks through exactly how to fix it using publicly available Nigerian immunisation data and R.</p>
+<p>You have spent days cleaning data, running analysis, and building a chart. You present it. The room nods. Nothing changes.</p>
+<p>This is not a data problem. It is a communication problem — and it starts with your chart title.</p>
+<p>This tutorial walks through exactly why most public health charts fail to drive decisions, and how to fix them using Nigerian immunisation data from the 2023–24 Demographic and Health Survey (DHS) and R.</p>
+<hr>
 </section>
 <section id="what-you-will-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-will-learn">What you will learn</h2>
+<p>By the end of this tutorial you will be able to:</p>
 <ul>
-<li>Why chart titles are the most powerful design decision in any policy visual</li>
-<li>How to reframe descriptive labels into decision-driving arguments</li>
-<li>How to structure visual hierarchy so policymakers read your chart the way you intend</li>
-<li>How to build and annotate policy-ready charts in R using ggplot2</li>
+<li>Explain why chart titles are the most powerful design decision in any policy visual</li>
+<li>Reframe descriptive chart labels into decision-driving arguments</li>
+<li>Build a clean, policy-ready bar chart in R using ggplot2</li>
+<li>Use ggtext to add formatted titles that direct attention</li>
+<li>Use patchwork to create before-and-after chart comparisons</li>
 </ul>
+<hr>
 </section>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>Before starting, make sure you have:</p>
 <ul>
-<li>R and RStudio installed</li>
-<li>Basic familiarity with R</li>
-<li>ggplot2 installed — if not run <code>install.packages("ggplot2")</code></li>
+<li>R and RStudio installed on your computer</li>
+<li>A basic understanding of R — you can open a script and run code</li>
+<li>The following packages installed — if you do not have them, run this in your RStudio Console:</li>
 </ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"ggtext"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span>, <span class="st">"dplyr"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The data</h2>
-<p>We will use publicly available immunisation coverage data from the Nigeria Demographic and Health Survey (DHS). Register free at <a href="https://dhsprogram.com">dhsprogram.com</a> to download it.</p>
+<p>We will use state-level Penta3 coverage estimates from the <strong>2023–24 Nigeria Demographic and Health Survey (DHS)</strong> — specifically the percentage of children aged 12–23 months who received three doses of the pentavalent vaccine, by state.</p>
+<p>The full report is publicly available at <a href="https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf">dhsprogram.com</a>.</p>
+<hr>
 </section>
-<section id="tutorial" class="level2">
-<h2 class="anchored" data-anchor-id="tutorial">Tutorial</h2>
-<p><em>Full tutorial content publishing Wednesday 19 March 2026.</em></p>
-<p>Follow along on <a href="https://www.linkedin.com/in/your-linkedin-handle">LinkedIn</a> where I share insights from each tutorial before it drops.</p>
+<section id="step-1-load-your-packages" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-load-your-packages">Step 1 — Load your packages</h2>
+<p>Every R session starts by loading the packages you need. Think of packages as toolboxes, each one gives you a specific set of tools.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)   <span class="co"># for building charts</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)    <span class="co"># for formatted text in chart titles</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) <span class="co"># for combining multiple charts</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)    <span class="co"># for formatting axis labels as percentages</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)     <span class="co"># for organising and transforming data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each <code>library()</code> call tells R: “I want to use the tools in this package today.”</p>
+<hr>
+</section>
+<section id="step-2-enter-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-enter-the-data">Step 2 — Enter the data</h2>
+<p>We create our dataset using <code>data.frame()</code> — R’s way of building a table directly in your script.</p>
+<p>The coverage values below come from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Enter them exactly as shown:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="fu">c</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Abia"</span>, <span class="st">"Adamawa"</span>, <span class="st">"Akwa Ibom"</span>, <span class="st">"Anambra"</span>, <span class="st">"Bauchi"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bayelsa"</span>, <span class="st">"Benue"</span>, <span class="st">"Borno"</span>, <span class="st">"Cross River"</span>, <span class="st">"Delta"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ebonyi"</span>, <span class="st">"Edo"</span>, <span class="st">"Ekiti"</span>, <span class="st">"Enugu"</span>, <span class="st">"FCT"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gombe"</span>, <span class="st">"Imo"</span>, <span class="st">"Jigawa"</span>, <span class="st">"Kaduna"</span>, <span class="st">"Kano"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Katsina"</span>, <span class="st">"Kebbi"</span>, <span class="st">"Kogi"</span>, <span class="st">"Kwara"</span>, <span class="st">"Lagos"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nasarawa"</span>, <span class="st">"Niger"</span>, <span class="st">"Ogun"</span>, <span class="st">"Ondo"</span>, <span class="st">"Osun"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Oyo"</span>, <span class="st">"Plateau"</span>, <span class="st">"Rivers"</span>, <span class="st">"Sokoto"</span>, <span class="st">"Taraba"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Yobe"</span>, <span class="st">"Zamfara"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">penta3_coverage =</span> <span class="fu">c</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fl">79.7</span>, <span class="fl">59.2</span>, <span class="fl">72.8</span>, <span class="fl">78.6</span>, <span class="fl">58.2</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fl">73.4</span>, <span class="fl">44.3</span>, <span class="fl">42.2</span>, <span class="fl">94.6</span>, <span class="fl">85.7</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fl">75.9</span>, <span class="fl">84.5</span>, <span class="fl">75.9</span>, <span class="fl">81.6</span>, <span class="fl">84.8</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fl">59.8</span>, <span class="fl">83.4</span>, <span class="fl">62.2</span>, <span class="fl">48.0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fl">53.3</span>, <span class="fl">13.1</span>, <span class="fl">37.1</span>, <span class="fl">34.9</span>, <span class="fl">87.6</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fl">67.1</span>, <span class="fl">36.7</span>, <span class="fl">73.9</span>, <span class="fl">63.9</span>, <span class="fl">67.1</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fl">52.6</span>, <span class="fl">47.1</span>, <span class="fl">71.0</span>, <span class="fl">10.9</span>, <span class="fl">47.3</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="fl">51.3</span>, <span class="fl">12.6</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Penta3 coverage figures are from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Values in parentheses (e.g.&nbsp;Ekiti) indicate estimates based on 25–49 unweighted cases and should be interpreted with caution.</p>
+</div>
+</div>
+</section>
+<section id="step-3-inspect-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-inspect-the-data">Step 3 — Inspect the data</h2>
+<p>Before building any chart, always look at your data first.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coverage)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dimensions — how many rows and columns?</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(coverage)  <span class="co"># should be 37 (36 states + FCT)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(coverage)  <span class="co"># should be 2</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick summary of coverage values</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coverage<span class="sc">$</span>penta3_coverage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>summary()</code> gives you the minimum, maximum, and average coverage values at a glance, useful for understanding the spread before you visualise it.</p>
+<hr>
+</section>
+<section id="step-4-build-the-before-chart" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-build-the-before-chart">Step 4 — Build the “before” chart</h2>
+<p>This is the chart most analysts would produce — technically correct, but built for the analyst, not the decision maker.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The "before" chart — a label, not an argument</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>chart_before <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> coverage,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(state, penta3_coverage),  <span class="co"># order states from lowest to highest</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> penta3_coverage                    <span class="co"># coverage on the y axis</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#AAAAAA"</span>) <span class="sc">+</span>            <span class="co"># draw bars in grey</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span>                           <span class="co"># flip so state names are readable</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),     <span class="co"># format y axis as percentages</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Penta3 Coverage by State, Nigeria 2023-24"</span>,  <span class="co"># a label</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Coverage (%)"</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># View the chart</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>chart_before</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice the title: <em>“Penta3 Coverage by State, Nigeria 2023–24.”</em></p>
+<p>It tells you what the chart is. It does not tell you what to do about it.</p>
+<hr>
+</section>
+<section id="step-5-find-the-argument-in-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-find-the-argument-in-your-data">Step 5 — Find the argument in your data</h2>
+<p>Before building a better chart, we need to identify the decision hiding in the data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the national average</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>national_avg <span class="ot">&lt;-</span> <span class="fu">mean</span>(coverage<span class="sc">$</span>penta3_coverage)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>national_avg  <span class="co"># print the value</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># How many states are below the national average?</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>coverage <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(penta3_coverage <span class="sc">&lt;</span> national_avg) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(penta3_coverage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>filter()</code> keeps only rows where the condition is true — here, states where coverage falls below the national average. <code>arrange()</code> sorts them from lowest to highest so we can see the worst performers immediately.</p>
+<p>This is your argument: <strong>a cluster of states — concentrated in the north — are significantly below the national average, and the gap between them and high-performing states is substantial.</strong></p>
+<p>That is a policy statement. Now let us build a chart that says it.</p>
+<hr>
+</section>
+<section id="step-6-build-the-after-chart" class="level2">
+<h2 class="anchored" data-anchor-id="step-6-build-the-after-chart">Step 6 — Build the “after” chart</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Flag each state as above or below the national average</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> coverage <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">below_avg =</span> penta3_coverage <span class="sc">&lt;</span> national_avg  <span class="co"># creates a TRUE/FALSE column</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The "after" chart — an argument, not a label</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>chart_after <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> coverage,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(state, penta3_coverage),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> penta3_coverage,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> below_avg                       <span class="co"># colour bars by above/below average</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">yintercept =</span> national_avg,             <span class="co"># reference line at national average</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype   =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour     =</span> <span class="st">"#333333"</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth  =</span> <span class="fl">0.6</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>      <span class="st">"TRUE"</span>  <span class="ot">=</span> <span class="st">"#D85A30"</span>,                 <span class="co"># orange for below-average states</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>      <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#1D9E75"</span>                  <span class="co"># green for above-average states</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">"none"</span>                         <span class="co"># title explains colour — no legend needed</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom   =</span> <span class="st">"text"</span>,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">x      =</span> <span class="dv">3</span>,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">y      =</span> national_avg <span class="sc">+</span> <span class="dv">3</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">label  =</span> <span class="fu">paste0</span>(<span class="st">"National average: "</span>, <span class="fu">round</span>(national_avg, <span class="dv">1</span>), <span class="st">"%"</span>),</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust  =</span> <span class="dv">0</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">size   =</span> <span class="dv">3</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#333333"</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">"**Northern states are falling behind** — and the gap demands attention"</span>,</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Penta3 coverage by state, Nigeria 2023–24. &lt;span style='color:#D85A30'&gt;States below national average&lt;/span&gt; highlighted in orange."</span>,</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">x        =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">"Coverage (%)"</span>,</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption  =</span> <span class="st">"Source: Nigeria Demographic and Health Survey 2023–24 (PR157)"</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title    =</span> <span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">lineheight =</span> <span class="fl">1.3</span>),</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"#555555"</span>),</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">colour =</span> <span class="st">"#999999"</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co"># View the chart</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>chart_after</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Two things make this chart work differently from the first:</p>
+<ol type="1">
+<li><code>element_markdown()</code> from ggtext lets us <strong>bold</strong> words in the title and colour text in the subtitle — so the reader’s eye goes exactly where we need it</li>
+<li>The colour split between above and below average means the reader understands the argument before reading a single state name</li>
+</ol>
+<hr>
+</section>
+<section id="step-7-compare-before-and-after" class="level2">
+<h2 class="anchored" data-anchor-id="step-7-compare-before-and-after">Step 7 — Compare before and after</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Place both charts side by side using patchwork</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>chart_before <span class="sc">+</span> chart_after <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Same data. Different decisions."</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">theme</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>patchwork</code> makes combining charts as simple as using <code>+</code>. <code>plot_annotation()</code> adds an overarching title across both panels.</p>
+<hr>
+</section>
+<section id="what-just-changed" class="level2">
+<h2 class="anchored" data-anchor-id="what-just-changed">What just changed</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Title</td>
+<td>Describes the chart</td>
+<td>Makes an argument</td>
+</tr>
+<tr class="even">
+<td>Colour</td>
+<td>Uniform grey</td>
+<td>Encodes meaning</td>
+</tr>
+<tr class="odd">
+<td>Reference line</td>
+<td>None</td>
+<td>National average anchor</td>
+</tr>
+<tr class="even">
+<td>Annotation</td>
+<td>None</td>
+<td>Contextual label</td>
+</tr>
+<tr class="odd">
+<td>Subtitle</td>
+<td>None</td>
+<td>Directs the reader’s eye</td>
+</tr>
+</tbody>
+</table>
+<p>None of these changes require more analysis. They require a different question before you build the chart:</p>
+<p><strong>What do I need my reader to do with this?</strong></p>
+<hr>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
+<p>Take a chart you have made recently. Look at the title. Ask yourself:</p>
+<ul>
+<li>Does this title describe the chart, or does it make an argument?</li>
+<li>What is the one thing I need my reader to decide after seeing this?</li>
+<li>Can I rewrite the title to answer that question directly?</li>
+</ul>
+<hr>
+</section>
+<section id="further-resources" class="level2">
+<h2 class="anchored" data-anchor-id="further-resources">Further resources</h2>
+<ul>
+<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization — Claus Wilke</a> — free online, excellent on chart design principles</li>
+<li><a href="https://wilkelab.org/ggtext/">ggtext documentation</a> — for formatted text in ggplot2</li>
+<li><a href="https://patchwork.data-imaginist.com/">patchwork documentation</a> — for combining charts</li>
+<li><a href="https://dhsprogram.com/pubs/pdf/PR157/PR157.pdf">2023–24 Nigeria DHS Key Indicators Report</a> — source data for this tutorial</li>
+</ul>
+<hr>
+</section>
+<section id="next-tutorial" class="level2">
+<h2 class="anchored" data-anchor-id="next-tutorial">Next tutorial</h2>
+<p><strong>Tutorial #2: Structuring a data story for policy audiences</strong> — how to sequence your findings so policymakers reach the right conclusion before you say a word.</p>
+<p><em>Publishing Wednesday 26 March 2026.</em></p>
 
 
 </section>
