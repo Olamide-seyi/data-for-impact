@@ -43,7 +43,8 @@ Before starting, make sure you have:
 -   A basic understanding of R — you can open a script and run code
 -   The following packages installed — if you do not have them, run this in your RStudio Console:
 
-``` r
+```{r}
+#| eval: false
 install.packages(c("ggplot2", "ggtext", "patchwork", "scales", "dplyr"))
 ```
 
@@ -61,7 +62,7 @@ The full report is publicly available at [dhsprogram.com](https://dhsprogram.com
 
 Every R session starts by loading the packages you need. Think of packages as toolboxes, each one gives you a specific set of tools.
 
-``` r
+```{r}
 # Load packages
 library(ggplot2)   # for building charts
 library(ggtext)    # for formatted text in chart titles
@@ -80,7 +81,7 @@ We create our dataset using `data.frame()` — R's way of building a table direc
 
 The coverage values below come from Table 15 of the 2023–24 Nigeria DHS Key Indicators Report. Enter them exactly as shown:
 
-``` r
+```{r}
 # Create the dataset
 coverage <- data.frame(
   state = c(
@@ -114,7 +115,7 @@ Penta3 coverage figures are from Table 15 of the 2023–24 Nigeria DHS Key Indic
 
 Before building any chart, always look at your data first.
 
-``` r
+```{r}
 # View the first few rows
 head(coverage)
 
@@ -134,7 +135,7 @@ summary(coverage$penta3_coverage)
 
 This is the chart most analysts would produce — technically correct, but built for the analyst, not the decision maker.
 
-``` r
+```{r}
 # The "before" chart — a label, not an argument
 chart_before <- ggplot(
   data = coverage,
@@ -170,7 +171,7 @@ It tells you what the chart is. It does not tell you what to do about it.
 
 Before building a better chart, we need to identify the decision hiding in the data.
 
-``` r
+```{r}
 # Calculate the national average
 national_avg <- mean(coverage$penta3_coverage)
 national_avg  # print the value
@@ -191,7 +192,7 @@ That is a policy statement. Now let us build a chart that says it.
 
 ## Step 6 — Build the "after" chart
 
-``` r
+```{r}
 # Flag each state as above or below the national average
 coverage <- coverage %>%
   mutate(
@@ -262,7 +263,7 @@ Two things make this chart work differently from the first:
 
 ## Step 7 — Compare before and after
 
-``` r
+```{r}
 # Place both charts side by side using patchwork
 chart_before + chart_after +
   plot_annotation(
