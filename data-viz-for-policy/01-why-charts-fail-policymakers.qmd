@@ -225,7 +225,7 @@ chart_after <- ggplot(
     colour = "#333333"
   ) +
   labs(
-    title    = "**Northern states are falling behind**",
+    title    = "**Half of Nigeria's states are below the national Penta3 average**",
     subtitle = "States <span style='color:#D85A30'>below national average</span> in orange.",
     x        = NULL,
     y        = "Coverage (%)",
