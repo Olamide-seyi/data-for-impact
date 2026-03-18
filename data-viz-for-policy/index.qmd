@@ -16,7 +16,7 @@ Each tutorial uses publicly available Nigerian and African health datasets with 
 | \# | Title | Level | Status |
 |----------------|------------------|------------------|---------------------|
 | 1 | [Why most public health charts fail policymakers](01-why-charts-fail-policymakers.qmd) | Beginner | Live |
-| 2 | Structuring a data story for policy audiences | Beginner | Coming soon |
+| 2 | [Structuring a data story for policy audiences](02-structuring-a-data-story-for-policy.qmd) | Beginner | Live |
 | 3 | Choosing the right chart type for policy data | Beginner | Coming soon |
 | 4 | Small multiples and faceted charts in R | Intermediate | Coming soon |
 | 5 | Colour, contrast, and accessibility | Intermediate | Coming soon |

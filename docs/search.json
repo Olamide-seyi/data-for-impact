@@ -137,7 +137,7 @@
     "href": "data-viz-for-policy/index.html#tutorials",
     "title": "Data Visualisation for Policy",
     "section": "Tutorials",
-    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nComing soon\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nComing soon\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon"
+    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nLive\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nComing soon\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon"
   },
   {
     "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
