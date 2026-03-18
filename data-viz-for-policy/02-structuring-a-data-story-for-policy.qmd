@@ -2,7 +2,7 @@
 title: "Tutorial #2: Structuring a Data Story for Policy Audiences"
 subtitle: "How to sequence your findings so policymakers reach the right conclusion before you say a word"
 author: "Olamide Akeboi"
-date: "2026-04-02"
+date: "2026-04-01"
 order: 2
 categories: [data visualisation, R, policy, communication, beginners]
 toc: true
