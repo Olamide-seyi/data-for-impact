@@ -1,6 +1,7 @@
 ---
 title: "About"
 page-layout: full
+sidebar: false
 ---
 
 ![](images/olamide.jpg){width="200px" style="border-radius: 50%; margin-bottom: 1rem;"}

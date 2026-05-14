@@ -1,27 +1,5 @@
 [
   {
-    "objectID": "data-viz-for-policy/index.html",
-    "href": "data-viz-for-policy/index.html",
-    "title": "Data Visualisation for Policy",
-    "section": "",
-    "text": "Most public health charts inform. This series teaches you to build charts that move people.\nEach tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Data Visualisation for Policy"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/index.html#tutorials",
-    "href": "data-viz-for-policy/index.html#tutorials",
-    "title": "Data Visualisation for Policy",
-    "section": "Tutorials",
-    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nLive\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nLive\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Data Visualisation for Policy"
-    ]
-  },
-  {
     "objectID": "about.html#olamide-akeboi",
     "href": "about.html#olamide-akeboi",
     "title": "About",
@@ -184,6 +162,236 @@
       "Data Viz for Policy",
       "Tutorial #3: Choosing the Right Chart Type for Policy Data"
     ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "",
+    "text": "You have spent days cleaning data, running analysis, and building a chart. You present it. The room nods. Nothing changes.\nThis is not a data problem. It is a communication problem — and it starts with your chart title.\nThis tutorial walks through exactly why most public health charts fail to drive decisions, and how to fix them using Nigerian immunisation data from the 2023–24 Demographic and Health Survey (DHS) and R.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "",
+    "text": "You have spent days cleaning data, running analysis, and building a chart. You present it. The room nods. Nothing changes.\nThis is not a data problem. It is a communication problem — and it starts with your chart title.\nThis tutorial walks through exactly why most public health charts fail to drive decisions, and how to fix them using Nigerian immunisation data from the 2023–24 Demographic and Health Survey (DHS) and R.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "What you will learn",
+    "text": "What you will learn\nBy the end of this tutorial you will be able to:\n\nExplain why chart titles are the most powerful design decision in any policy visual\nReframe descriptive chart labels into decision-driving arguments\nBuild a clean, policy-ready bar chart in R using ggplot2\nUse ggtext to add formatted titles that direct attention\nUse patchwork to create before-and-after chart comparisons",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nBefore starting, make sure you have:\n\nR and RStudio installed on your computer\nA basic understanding of R — you can open a script and run code\nThe following packages installed — if you do not have them, run this in your RStudio Console:\n\n\ninstall.packages(c(\"ggplot2\", \"ggtext\", \"patchwork\", \"scales\", \"dplyr\"))",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#data",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#data",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Data",
+    "text": "Data\nWe will use state-level Penta3 coverage estimates from the 2023–24 Nigeria Demographic and Health Survey (DHS) — specifically the percentage of children aged 12–23 months who received three doses of the pentavalent vaccine, by state.\nThe full report is publicly available at dhsprogram.com.\nRather than loading a file, we will enter the data directly into R as a data frame. This makes the tutorial fully self-contained — no downloads needed.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-1-load-your-packages",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-1-load-your-packages",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 1 — Load your packages",
+    "text": "Step 1 — Load your packages\nEvery R session starts by loading the packages you need. Think of packages as toolboxes — each one gives you a specific set of tools.\n\nlibrary(ggplot2)   # for building charts\nlibrary(ggtext)    # for formatted text in chart titles\nlibrary(patchwork) # for combining multiple charts\nlibrary(scales)    # for formatting axis labels as percentages\nlibrary(dplyr)     # for organising and transforming data\n\nEach library() call tells R: “I want to use the tools in this package today.”",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-2-enter-the-data",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-2-enter-the-data",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 2 — Enter the data",
+    "text": "Step 2 — Enter the data\nWe create our dataset using data.frame() — R’s way of building a table directly in your script. The coverage values come from Table 10 of the 2023–24 Nigeria DHS Key Indicators Report (PR157).\n\ncoverage &lt;- data.frame(\n  state = c(\n    \"Abia\", \"Adamawa\", \"Akwa Ibom\", \"Anambra\", \"Bauchi\",\n    \"Bayelsa\", \"Benue\", \"Borno\", \"Cross River\", \"Delta\",\n    \"Ebonyi\", \"Edo\", \"Ekiti\", \"Enugu\", \"FCT\",\n    \"Gombe\", \"Imo\", \"Jigawa\", \"Kaduna\", \"Kano\",\n    \"Katsina\", \"Kebbi\", \"Kogi\", \"Kwara\", \"Lagos\",\n    \"Nasarawa\", \"Niger\", \"Ogun\", \"Ondo\", \"Osun\",\n    \"Oyo\", \"Plateau\", \"Rivers\", \"Sokoto\", \"Taraba\",\n    \"Yobe\", \"Zamfara\"\n  ),\n  penta3_coverage = c(\n    79.7, 59.2, 72.8, 78.6, 58.2,\n    73.4, 44.3, 42.2, 94.6, 85.7,\n    75.9, 84.5, 75.9, 81.6, 84.8,\n    59.8, 83.4, 62.2, 48.0, 47.5,\n    53.3, 13.1, 37.1, 34.9, 87.6,\n    67.1, 36.7, 73.9, 63.9, 67.1,\n    52.6, 47.1, 71.0, 10.9, 47.3,\n    51.3, 12.6\n  )\n)",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-3-inspect-the-data",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-3-inspect-the-data",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 3 — Inspect the data",
+    "text": "Step 3 — Inspect the data\nBefore building any chart, always look at your data first.\n\n# View the first few rows\nhead(coverage)\n\n      state penta3_coverage\n1      Abia            79.7\n2   Adamawa            59.2\n3 Akwa Ibom            72.8\n4   Anambra            78.6\n5    Bauchi            58.2\n6   Bayelsa            73.4\n\n# Quick summary of coverage values\nsummary(coverage$penta3_coverage)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  10.90   47.30   62.20   59.99   75.90   94.60 \n\n\nsummary() gives you the minimum, maximum, and average coverage values at a glance — useful for understanding the spread before you visualise it.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-4-build-the-before-chart",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-4-build-the-before-chart",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 4 — Build the “before” chart",
+    "text": "Step 4 — Build the “before” chart\nThis is the chart most analysts would produce — technically correct, but built for the analyst, not the decision maker.\n\nchart_before &lt;- ggplot(\n  data = coverage,\n  aes(\n    x = reorder(state, penta3_coverage),\n    y = penta3_coverage\n  )\n) +\n  geom_col(fill = \"#AAAAAA\") +\n  coord_flip() +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 100)\n  ) +\n  labs(\n    title = \"Penta3 Coverage by State\",\n    x     = NULL,\n    y     = \"Coverage (%)\"\n  ) +\n  theme_minimal(base_size = 11)\n\nchart_before\n\n\n\n\n\n\n\n\nNotice the title: “Penta3 Coverage by State” It tells you what the chart is. It does not tell you what to do about it.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-5-find-the-argument-in-your-data",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-5-find-the-argument-in-your-data",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 5 — Find the argument in your data",
+    "text": "Step 5 — Find the argument in your data\nBefore building a better chart, we need to identify the decision hiding in the data.\n\n# Calculate the national average\nnational_avg &lt;- mean(coverage$penta3_coverage)\nnational_avg\n\n[1] 59.99459\n\n# States below the national average\ncoverage %&gt;%\n  filter(penta3_coverage &lt; national_avg) %&gt;%\n  arrange(penta3_coverage)\n\n     state penta3_coverage\n1   Sokoto            10.9\n2  Zamfara            12.6\n3    Kebbi            13.1\n4    Kwara            34.9\n5    Niger            36.7\n6     Kogi            37.1\n7    Borno            42.2\n8    Benue            44.3\n9  Plateau            47.1\n10  Taraba            47.3\n11    Kano            47.5\n12  Kaduna            48.0\n13    Yobe            51.3\n14     Oyo            52.6\n15 Katsina            53.3\n16  Bauchi            58.2\n17 Adamawa            59.2\n18   Gombe            59.8\n\n\nfilter() keeps only rows where the condition is true. arrange() sorts them from lowest to highest so we can see the worst performers immediately.\nThis is your argument: a cluster of states — concentrated in the north — are significantly below the national average, and the gap is substantial.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-6-build-the-after-chart",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-6-build-the-after-chart",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 6 — Build the “after” chart",
+    "text": "Step 6 — Build the “after” chart\n\n# Flag each state as above or below the national average\ncoverage &lt;- coverage %&gt;%\n  mutate(below_avg = penta3_coverage &lt; national_avg)\n\nchart_after &lt;- ggplot(\n  data = coverage,\n  aes(\n    x    = reorder(state, penta3_coverage),\n    y    = penta3_coverage,\n    fill = below_avg\n  )\n) +\n  geom_col() +\n  geom_hline(\n    yintercept = national_avg,\n    linetype   = \"dashed\",\n    colour     = \"#333333\",\n    linewidth  = 0.6\n  ) +\n  geom_text(\n    aes(label = paste0(penta3_coverage, \"%\")),\n    hjust    = 1.2,\n    size     = 2.8,\n    colour   = \"white\"\n  ) +\n  coord_flip() +\n  scale_fill_manual(\n    values = c(\"TRUE\" = \"#D85A30\", \"FALSE\" = \"#1D9E75\"),\n    guide  = \"none\"\n  ) +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 105)\n  ) +\n  annotate(\n    geom   = \"text\",\n    x      = 3,\n    y      = national_avg + 3,\n    label  = paste0(\"National avg: \", round(national_avg, 1), \"%\"),\n    hjust  = 0,\n    size   = 2.8,\n    colour = \"#333333\"\n  ) +\n  labs(\n    title    = \"**Half of Nigeria's states are below the national Penta3 average**\",\n    subtitle = \"States &lt;span style='color:#D85A30'&gt;below national average&lt;/span&gt; in orange.\",\n    x        = NULL,\n    y        = \"Coverage (%)\",\n    caption  = \"Source: Nigeria DHS 2023–24\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title    = element_markdown(size = 12, lineheight = 1.3),\n    plot.subtitle = element_markdown(size = 9, colour = \"#555555\"),\n    plot.caption  = element_text(size = 8, colour = \"#999999\")\n  )\n\nchart_after\n\n\n\n\n\n\n\n\nTwo things make this chart work differently from the first: element_markdown() lets us bold the title and colour the subtitle text, and the colour split immediately signals which states need attention.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-7-compare-before-and-after",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-7-compare-before-and-after",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Step 7 — Compare before and after",
+    "text": "Step 7 — Compare before and after\n\nchart_before + chart_after +\n  plot_annotation(\n    title = \"Same data. Different decisions.\",\n    theme = theme(\n      plot.title = element_text(size = 14, face = \"bold\", hjust = 0.5)\n    )\n  ) +\n  plot_layout(widths = c(1, 1))\n\n\n\n\n\n\n\n\npatchwork makes combining charts as simple as using +. plot_annotation() adds an overarching title across both panels.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-just-changed",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-just-changed",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "What just changed",
+    "text": "What just changed\n\n\n\nElement\nBefore\nAfter\n\n\n\n\nTitle\nDescribes the chart\nMakes an argument\n\n\nColour\nUniform grey\nEncodes meaning\n\n\nReference line\nNone\nNational average anchor\n\n\nAnnotation\nNone\nContextual label\n\n\nSubtitle\nNone\nDirects the reader’s eye\n\n\n\nNone of these changes require more analysis. They require a different question before you build the chart: what do I need my reader to do with this?",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#your-turn",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#your-turn",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Your turn",
+    "text": "Your turn\nTake a chart you have made recently. Look at the title. Ask yourself:\n\nDoes this title describe the chart, or does it make an argument?\nWhat is the one thing I need my reader to decide after seeing this?\nCan I rewrite the title to answer that question directly?",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#further-resources",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#further-resources",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Further resources",
+    "text": "Further resources\n\nggtext documentation\npatchwork documentation\n2023–24 Nigeria DHS Key Indicators Report",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#next-tutorial",
+    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#next-tutorial",
+    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
+    "section": "Next tutorial",
+    "text": "Next tutorial\nTutorial #2: Structuring a data story for policy audiences — how to sequence your findings so policymakers reach the right conclusion before you say a word.\nRead Tutorial #2 →",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html",
+    "href": "data-viz-for-policy/index.html",
+    "title": "Data for Impact",
+    "section": "",
+    "text": "Turn complex public health data into decisions that matter.\nEach tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Data for Impact"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html#tutorial-series",
+    "href": "data-viz-for-policy/index.html#tutorial-series",
+    "title": "Data for Impact",
+    "section": "Tutorial Series",
+    "text": "Tutorial Series\n\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use — not just read.\n8 tutorials · Starting March 2026 · R\nExplore series →\n\n\nSpatial Analysis for Public Health\nMapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.\nComing soon\n\n\nAI-Assisted Analysis\nHow to use AI tools to accelerate your analytical workflow without losing rigour.\nComing soon",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Data for Impact"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html#about-the-author",
+    "href": "data-viz-for-policy/index.html#about-the-author",
+    "title": "Data for Impact",
+    "section": "About the Author",
+    "text": "About the Author\n\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.\nLearn more →",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Data for Impact"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/about.html#olamide-akeboi",
+    "href": "data-viz-for-policy/about.html#olamide-akeboi",
+    "title": "About",
+    "section": "Olamide Akeboi",
+    "text": "Olamide Akeboi\nI am a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, monitoring and evaluation, and AI applications in global health.\nI created Data for Impact to make rigorous analytical methods accessible to the people doing the hardest work in public health: the analysts, researchers, and programme teams whose findings should be driving decisions but often aren’t.\nEvery tutorial in this series is built around real problems, uses publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "data-viz-for-policy/about.html#what-you-will-find-here",
+    "href": "data-viz-for-policy/about.html#what-you-will-find-here",
+    "title": "About",
+    "section": "What you will find here",
+    "text": "What you will find here\n\nData Visualisation for Policy — how to build charts and maps that policymakers actually use\nSpatial Analysis for Public Health — coming soon\nAI-Assisted Analysis — coming soon"
+  },
+  {
+    "objectID": "data-viz-for-policy/about.html#connect",
+    "href": "data-viz-for-policy/about.html#connect",
+    "title": "About",
+    "section": "Connect",
+    "text": "Connect\n\nLinkedIn\nGitHub"
   },
   {
     "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html",

@@ -16,8 +16,8 @@ website:
   page-navigation: true
   sidebar:
     - title: "Data Visualisation for Policy"
+      id: data-viz-sidebar
       contents:
-        - data-viz-for-policy/index.qmd
         - data-viz-for-policy/01-why-charts-fail-policymakers.qmd
         - data-viz-for-policy/02-structuring-a-data-story-for-policy.qmd
         - data-viz-for-policy/03-choosing-the-right-chart-type.qmd

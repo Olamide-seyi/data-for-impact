@@ -3,6 +3,7 @@ title: "Data for Impact"
 subtitle: "Practical tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
 page-layout: full
 toc: false
+sidebar: false
 ---
 
 ::: hero-banner
