@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data for Impact",
+    "section": "",
+    "text": "Turn complex public health data into decisions that matter.\nEach tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately."
+  },
+  {
+    "objectID": "index.html#tutorial-series",
+    "href": "index.html#tutorial-series",
+    "title": "Data for Impact",
+    "section": "Tutorial Series",
+    "text": "Tutorial Series\n\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use — not just read.\n8 tutorials · Starting March 2026 · R\nExplore series →\n\n\nSpatial Analysis for Public Health\nMapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.\nComing soon\n\n\nAI-Assisted Analysis\nHow to use AI tools to accelerate your analytical workflow without losing rigour.\nComing soon"
+  },
+  {
+    "objectID": "index.html#about-the-author",
+    "href": "index.html#about-the-author",
+    "title": "Data for Impact",
+    "section": "About the Author",
+    "text": "About the Author\n\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.\nLearn more →"
+  }
+]

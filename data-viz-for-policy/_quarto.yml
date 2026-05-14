@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Data for Impact"
+  description: "Tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: data-viz-for-policy/index.qmd
+        text: Data Viz for Policy
+  page-navigation: true
+  sidebar:
+    - title: "Data Visualisation for Policy"
+      id: data-viz-sidebar
+      contents:
+        - data-viz-for-policy/index.qmd
+        - data-viz-for-policy/01-why-charts-fail-policymakers.qmd
+        - data-viz-for-policy/02-structuring-a-data-story-for-policy.qmd
+        - data-viz-for-policy/03-choosing-the-right-chart-type.qmd
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true

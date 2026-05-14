@@ -1,25 +1,51 @@
 ---
-title: "Data Visualisation for Policy"
-subtitle: "A practical tutorial series on building charts and maps that drive decisions"
+title: "Data for Impact"
+subtitle: "Practical tutorials on spatial analysis, data visualisation, and AI for public health decision-making"
 page-layout: full
 toc: false
+sidebar: false
 ---
 
 ::: hero-banner
-Most public health charts inform. This series teaches you to build charts that move people.
+Turn complex public health data into decisions that matter.
 
-Each tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.
+Each tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately.
 :::
 
-## Tutorials
+## Tutorial Series
 
-| \# | Title | Level | Status |
-|----|----|----|----|
-| 1 | [Why most public health charts fail policymakers](01-why-charts-fail-policymakers.qmd) | Beginner | Live |
-| 2 | [Structuring a data story for policy audiences](02-structuring-a-data-story-for-policy.qmd) | Beginner | Live |
-| 3 | [Choosing the right chart type for policy data](03-choosing-the-right-chart-type.qmd) | Beginner | Live |
-| 4 | Small multiples and faceted charts in R | Intermediate | Coming soon |
-| 5 | Colour, contrast, and accessibility | Intermediate | Coming soon |
-| 6 | Annotations and labels with ggplot2 | Intermediate | Coming soon |
-| 7 | End-to-end: DHIS2 data to decision-ready dashboard | Advanced | Coming soon |
-| 8 | Building a reusable reporting template in R | Advanced | Coming soon |
+:::::: series-grid
+::: series-card
+### Data Visualisation for Policy
+
+How to build charts, maps, and dashboards that policymakers actually use — not just read.
+
+**8 tutorials · Starting March 2026 · R**
+
+[Explore series →](data-viz-for-policy/index.qmd)
+:::
+
+::: {.series-card .coming-soon}
+### Spatial Analysis for Public Health
+
+Mapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.
+
+**Coming soon**
+:::
+
+::: {.series-card .coming-soon}
+### AI-Assisted Analysis
+
+How to use AI tools to accelerate your analytical workflow without losing rigour.
+
+**Coming soon**
+:::
+::::::
+
+## About the Author
+
+::: author-strip
+Olamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.
+
+[Learn more →](about.qmd)
+:::
