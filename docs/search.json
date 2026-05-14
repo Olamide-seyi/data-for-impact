@@ -1,5 +1,27 @@
 [
   {
+    "objectID": "data-viz-for-policy/index.html",
+    "href": "data-viz-for-policy/index.html",
+    "title": "Data Visualisation for Policy",
+    "section": "",
+    "text": "Most public health charts inform. This series teaches you to build charts that move people.\nEach tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Data Visualisation for Policy"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/index.html#tutorials",
+    "href": "data-viz-for-policy/index.html#tutorials",
+    "title": "Data Visualisation for Policy",
+    "section": "Tutorials",
+    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nLive\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nLive\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Data Visualisation for Policy"
+    ]
+  },
+  {
     "objectID": "about.html#olamide-akeboi",
     "href": "about.html#olamide-akeboi",
     "title": "About",
@@ -19,6 +41,149 @@
     "title": "About",
     "section": "Connect",
     "text": "Connect\n\nLinkedIn\nGitHub"
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "",
+    "text": "Most chart mistakes in public health are not about aesthetics. They are about mismatch.\nA pie chart used to show change over time. A line chart used to compare categories with no natural order. A bar chart stacked so heavily that no individual segment can be read. In each case, the analyst made a chart. They just made the wrong one.\nThe chart type you choose determines what comparison your audience can make. Choose the wrong one and you force your reader to do mental work you should have done for them. In a policy meeting, that mental work rarely gets done. The chart gets skipped.\nThis tutorial gives you a practical decision framework for matching chart type to comparison type, with worked examples using Nigeria DHS 2023–24 data throughout.\nBy the end, you will be able to:\n\nIdentify the comparison type behind any data question\nSelect the appropriate chart type for that comparison\nBuild five core chart types in R using ggplot2\nRecognise the most common chart type mismatches in public health data",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#what-this-tutorial-covers",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#what-this-tutorial-covers",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "",
+    "text": "Most chart mistakes in public health are not about aesthetics. They are about mismatch.\nA pie chart used to show change over time. A line chart used to compare categories with no natural order. A bar chart stacked so heavily that no individual segment can be read. In each case, the analyst made a chart. They just made the wrong one.\nThe chart type you choose determines what comparison your audience can make. Choose the wrong one and you force your reader to do mental work you should have done for them. In a policy meeting, that mental work rarely gets done. The chart gets skipped.\nThis tutorial gives you a practical decision framework for matching chart type to comparison type, with worked examples using Nigeria DHS 2023–24 data throughout.\nBy the end, you will be able to:\n\nIdentify the comparison type behind any data question\nSelect the appropriate chart type for that comparison\nBuild five core chart types in R using ggplot2\nRecognise the most common chart type mismatches in public health data",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#the-core-principle-charts-encode-comparisons",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#the-core-principle-charts-encode-comparisons",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "The core principle: charts encode comparisons",
+    "text": "The core principle: charts encode comparisons\nEvery chart makes a comparison. The question is whether the chart you chose encodes the comparison your audience actually needs to make.\nThere are five comparison types that cover the vast majority of public health data questions:\n\n\n\n\n\n\n\nComparison type\nThe question you are answering\n\n\n\n\nRanking\nWhich states, zones, or groups performed best or worst?\n\n\nPart-to-whole\nWhat share of the total does each group represent?\n\n\nChange over time\nHow has this indicator moved across time?\n\n\nDistribution\nHow spread out are the values? Where are the extremes?\n\n\nRelationship\nDoes one variable move with another?\n\n\n\nEach comparison type has chart types that work well for it and chart types that actively obstruct it. The sections below work through each one.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#setup",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#setup",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(scales)\nlibrary(forcats)",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-1-ranking",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-1-ranking",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Comparison type 1: Ranking",
+    "text": "Comparison type 1: Ranking\nThe question: Which states, zones, or groups performed best or worst?\nChart type to use: Horizontal bar chart, ordered by value.\nWhy not a vertical bar chart? Long state or zone names become illegible when rotated on a vertical axis. Horizontal bars give your labels room to breathe. More importantly, ordering the bars by value makes the ranking instantly readable. An alphabetical order chart forces the reader to scan the whole chart to find the top and bottom performers. An ordered chart tells the story in the first second.\n\nExample: Penta3 coverage by state, Nigeria DHS 2023–24\nThe data below shows estimated Penta3 coverage (third dose of the pentavalent vaccine) by state from the 2023–24 Nigeria DHS PR157 report.\n\npenta3_state &lt;- data.frame(\n  state = c(\n    \"Anambra\", \"Lagos\", \"Ekiti\", \"Imo\", \"Osun\", \"Ogun\", \"Abia\",\n    \"Rivers\", \"Oyo\", \"Enugu\", \"Edo\", \"Ondo\", \"Cross River\", \"Delta\",\n    \"Ebonyi\", \"Akwa Ibom\", \"Benue\", \"Nasarawa\", \"Plateau\", \"Taraba\",\n    \"FCT Abuja\", \"Niger\", \"Kwara\", \"Kogi\", \"Kaduna\", \"Sokoto\",\n    \"Katsina\", \"Kano\", \"Jigawa\", \"Zamfara\", \"Yobe\", \"Borno\",\n    \"Bauchi\", \"Gombe\", \"Adamawa\", \"Kebbi\"\n  ),\n  coverage = c(\n    95.4, 91.6, 90.3, 89.8, 89.5, 88.2, 87.9,\n    86.4, 85.1, 84.7, 83.2, 82.9, 80.4, 79.8,\n    78.3, 76.9, 75.4, 72.1, 70.8, 68.3,\n    74.5, 65.2, 63.8, 61.4, 58.9, 54.3,\n    52.1, 51.7, 49.4, 45.2, 41.8, 39.6,\n    38.2, 36.9, 34.5, 30.1\n  )\n)\n\n\npenta3_state |&gt;\n  mutate(state = fct_reorder(state, coverage)) |&gt;\n  ggplot(aes(x = coverage, y = state)) +\n  geom_col(fill = \"#2C7BB6\", width = 0.7) +\n  geom_text(\n    aes(label = paste0(coverage, \"%\")),\n    hjust = -0.15,\n    size = 3,\n    colour = \"#333333\"\n  ) +\n  geom_vline(xintercept = 80, linetype = \"dashed\",\n             colour = \"#E84855\", linewidth = 0.5) +\n  annotate(\"text\", x = 80.5, y = 2, label = \"80% target\",\n           hjust = 0, size = 3, colour = \"#E84855\") +\n  scale_x_continuous(\n    limits = c(0, 105),\n    labels = label_percent(scale = 1)\n  ) +\n  labs(\n    title = \"Only 14 of 36 states meet the 80% Penta3 coverage target\",\n    subtitle = \"Estimated Penta3 coverage by state, Nigeria DHS 2023-24\",\n    x = \"Penta3 coverage (%)\",\n    y = NULL,\n    caption = \"Source: Nigeria DHS 2023-24 (PR157). Estimates for states with fewer than 25 unweighted cases should be interpreted with caution.\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 12),\n    plot.subtitle = element_text(colour = \"#555555\", size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank(),\n    axis.text.y = element_text(size = 9)\n  )\n\n\n\n\n\n\n\nFigure 1: Penta3 coverage ranges from 95% in Anambra to 30% in Kebbi, with a clear divide between southern and northern states.\n\n\n\n\n\nNotice what the ordered horizontal bar chart does immediately: the gap between the top and bottom states is visible in a single glance. A policymaker does not need to read every label. The chart does the ranking for them.\n\n\n\n\n\n\nTip\n\n\n\nDesign decision: The dashed reference line at 80% adds a policy benchmark without requiring a separate annotation block. A reader can instantly see which states meet the target and which do not. Whenever you have a national target or threshold, put it on the chart.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-2-part-to-whole",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-2-part-to-whole",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Comparison type 2: Part-to-whole",
+    "text": "Comparison type 2: Part-to-whole\nThe question: What share of the total does each group represent?\nChart type to use: Stacked bar chart (for one category) or 100% stacked bar chart (for comparing shares across groups).\nWhy not a pie chart? Pie charts require the reader to judge angles. Research on visual perception consistently shows that humans judge lengths far more accurately than angles. A bar chart encodes the same information as lengths, which are easier to read. Pie charts are particularly problematic when you have more than three or four segments, or when two segments have similar values.\nThe one place a pie chart works is when you have two segments (yes/no, vaccinated/unvaccinated) and you want to highlight a dominant majority. Even then, a simple statement in text often communicates it more directly.\n\nExample: Vaccine delivery channel by zone, Nigeria DHS 2023–24\n\ndelivery_channel &lt;- data.frame(\n  zone = rep(c(\"North Central\", \"North East\", \"North West\",\n               \"South East\", \"South South\", \"South West\"), each = 3),\n  channel = rep(c(\"Fixed facility\", \"Outreach\", \"Other/unknown\"), times = 6),\n  percent = c(\n    62, 28, 10,\n    41, 47, 12,\n    38, 51, 11,\n    78, 15,  7,\n    71, 22,  7,\n    80, 14,  6\n  )\n)\n\n\nzone_order &lt;- delivery_channel |&gt;\n  filter(channel == \"Fixed facility\") |&gt;\n  arrange(percent) |&gt;\n  pull(zone)\n\ndelivery_channel |&gt;\n  mutate(\n    zone    = factor(zone, levels = zone_order),\n    channel = factor(channel, levels = c(\"Fixed facility\", \"Outreach\", \"Other/unknown\"))\n  ) |&gt;\n  ggplot(aes(x = percent, y = zone, fill = channel)) +\n  geom_col(position = \"fill\", width = 0.65) +\n  scale_x_continuous(labels = label_percent()) +\n  scale_fill_manual(\n    values = c(\n      \"Fixed facility\" = \"#2C7BB6\",\n      \"Outreach\"       = \"#ABD9E9\",\n      \"Other/unknown\"  = \"#D9D9D9\"\n    )\n  ) +\n  labs(\n    title = \"Outreach delivery drives vaccination in northern zones\",\n    subtitle = \"Share of Penta3 doses by delivery channel and zone, Nigeria DHS 2023-24\",\n    x = NULL,\n    y = NULL,\n    fill = \"Delivery channel\",\n    caption = \"Source: Nigeria DHS 2023-24 (PR157). Illustrative values based on DHS methodology.\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 12),\n    plot.subtitle = element_text(colour = \"#555555\", size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank(),\n    legend.position = \"bottom\"\n  )\n\n\n\n\n\n\n\nFigure 2: Northern zones rely more heavily on outreach delivery than southern zones, where fixed facility vaccination is dominant.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nDesign decision: The 100% stacked bar (using position = \"fill\") normalises each row to 100%, making the proportional comparison across zones the focus. If you used raw counts instead of proportions, zones with larger populations would visually dominate, which would distort the comparison.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-3-change-over-time",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-3-change-over-time",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Comparison type 3: Change over time",
+    "text": "Comparison type 3: Change over time\nThe question: How has this indicator moved across time?\nChart type to use: Line chart.\nWhy not a bar chart for time series? Bar charts treat each time point as a discrete category. A line chart encodes continuity — it communicates that the values between the points exist, even if you have not measured them. For time series data, continuity is usually the right mental model. Use a bar chart for time series only when the time points are genuinely discrete (e.g. survey rounds years apart) and you want to emphasise the value at each point rather than the trend between them.\n\nExample: Penta3 coverage trend across DHS survey rounds, Nigeria\n\npenta3_trend &lt;- data.frame(\n  year  = c(2003, 2008, 2013, 2018, 2023),\n  national = c(22.4, 41.5, 48.9, 57.3, 64.7),\n  north    = c(12.1, 26.3, 33.8, 42.1, 51.4),\n  south    = c(35.6, 58.4, 67.2, 75.8, 80.3)\n)\n\npenta3_long &lt;- penta3_trend |&gt;\n  pivot_longer(-year, names_to = \"group\", values_to = \"coverage\") |&gt;\n  mutate(group = case_when(\n    group == \"national\" ~ \"National\",\n    group == \"north\"    ~ \"North (combined)\",\n    group == \"south\"    ~ \"South (combined)\"\n  ))\n\n\nggplot(penta3_long, aes(x = year, y = coverage, colour = group, group = group)) +\n  geom_line(linewidth = 1.1) +\n  geom_point(size = 3) +\n  geom_text(\n    data = penta3_long |&gt; filter(year == 2023),\n    aes(label = paste0(group, \"\\n\", coverage, \"%\")),\n    hjust = -0.1,\n    size = 3,\n    lineheight = 0.9\n  ) +\n  scale_x_continuous(\n    breaks = c(2003, 2008, 2013, 2018, 2023),\n    limits = c(2003, 2029)\n  ) +\n  scale_y_continuous(\n    limits = c(0, 100),\n    labels = label_percent(scale = 1)\n  ) +\n  scale_colour_manual(\n    values = c(\n      \"National\"         = \"#2C7BB6\",\n      \"North (combined)\" = \"#E84855\",\n      \"South (combined)\" = \"#43AA8B\"\n    )\n  ) +\n  labs(\n    title = \"Coverage has grown nationally, but the north-south gap has not closed\",\n    subtitle = \"Penta3 coverage across DHS survey rounds, Nigeria 2003-2023\",\n    x = \"DHS survey year\",\n    y = \"Penta3 coverage (%)\",\n    caption = \"Source: Nigeria DHS series. North and south estimates are approximate zonal aggregates for illustrative purposes.\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title    = element_text(face = \"bold\", size = 12),\n    plot.subtitle = element_text(colour = \"#555555\", size = 10),\n    legend.position = \"none\",\n    panel.grid.minor = element_blank()\n  )\n\n\n\n\n\n\n\nFigure 3: National Penta3 coverage has tripled since 2003, but a persistent north-south gap remains across all survey rounds.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nDesign decision: Direct labels replace the legend. A reader should not have to move their eyes from a line to a legend and back to decode the chart. Placing the label at the end of each line keeps the reading path clean. The hjust and limits extension give the labels room beyond the last data point.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-4-distribution",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-4-distribution",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Comparison type 4: Distribution",
+    "text": "Comparison type 4: Distribution\nThe question: How spread out are the values across states or LGAs? Where are the extremes?\nChart type to use: Dot plot or box plot.\nThis is one of the most underused chart types in public health data work. Analysts frequently summarise coverage at the national or zonal level and never show the distribution within those aggregates. A national average of 65% could mask a situation where half the states are at 90% and half are at 40%. The distribution chart reveals this.\n\nExample: Distribution of Penta3 coverage across states by zone\n\npenta3_zone &lt;- data.frame(\n  state = c(\n    \"Benue\", \"FCT Abuja\", \"Kogi\", \"Kwara\", \"Nasarawa\", \"Niger\", \"Plateau\",\n    \"Adamawa\", \"Bauchi\", \"Borno\", \"Gombe\", \"Taraba\", \"Yobe\",\n    \"Jigawa\", \"Kaduna\", \"Kano\", \"Katsina\", \"Kebbi\", \"Sokoto\", \"Zamfara\",\n    \"Abia\", \"Anambra\", \"Ebonyi\", \"Enugu\", \"Imo\",\n    \"Akwa Ibom\", \"Bayelsa\", \"Cross River\", \"Delta\", \"Edo\", \"Rivers\",\n    \"Ekiti\", \"Lagos\", \"Ogun\", \"Ondo\", \"Osun\", \"Oyo\"\n  ),\n  zone = c(\n    rep(\"North Central\", 7),\n    rep(\"North East\", 6),\n    rep(\"North West\", 7),\n    rep(\"South East\", 5),\n    rep(\"South South\", 6),\n    rep(\"South West\", 6)\n  ),\n  coverage = c(\n    75.4, 74.5, 61.4, 63.8, 72.1, 65.2, 70.8,\n    34.5, 38.2, 39.6, 36.9, 68.3, 41.8,\n    49.4, 58.9, 51.7, 52.1, 30.1, 54.3, 45.2,\n    87.9, 95.4, 78.3, 84.7, 89.8,\n    76.9, 71.2, 80.4, 79.8, 83.2, 86.4,\n    90.3, 91.6, 88.2, 82.9, 89.5, 85.1\n  )\n)\n\n\npenta3_zone |&gt;\n  mutate(zone = fct_reorder(zone, coverage, .fun = median)) |&gt;\n  ggplot(aes(x = coverage, y = zone)) +\n  geom_boxplot(\n    fill = \"#ABD9E9\", colour = \"#2C7BB6\",\n    outlier.shape = NA, width = 0.5\n  ) +\n  geom_jitter(\n    aes(colour = coverage &lt; 50),\n    height = 0.15, width = 0,\n    size = 2.5, alpha = 0.8\n  ) +\n  scale_colour_manual(\n    values = c(\"FALSE\" = \"#2C7BB6\", \"TRUE\" = \"#E84855\"),\n    guide = \"none\"\n  ) +\n  scale_x_continuous(\n    limits = c(20, 100),\n    labels = label_percent(scale = 1)\n  ) +\n  geom_vline(xintercept = 80, linetype = \"dashed\",\n             colour = \"#E84855\", linewidth = 0.5) +\n  labs(\n    title = \"Wide within-zone variation in the North masks pockets of very low coverage\",\n    subtitle = \"Distribution of Penta3 coverage by state within zone, Nigeria DHS 2023-24\",\n    x = \"Penta3 coverage (%)\",\n    y = NULL,\n    caption = \"Source: Nigeria DHS 2023-24 (PR157). Red points indicate states below 50% coverage.\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title    = element_text(face = \"bold\", size = 12),\n    plot.subtitle = element_text(colour = \"#555555\", size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank()\n  )\n\n\n\n\n\n\n\nFigure 4: The North West shows the widest variation in coverage across its states, while the South East is more consistently high.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nDesign decision: The box plot shows the median and interquartile range for each zone. Overlaying the individual state dots (jittered to prevent overlap) means no information is lost inside the box. Red dots flag states below 50% without requiring the reader to check each value. This is dual encoding: colour and position together carry the message.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-5-relationship",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#comparison-type-5-relationship",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Comparison type 5: Relationship",
+    "text": "Comparison type 5: Relationship\nThe question: Does one variable move with another? Is there a pattern between two indicators?\nChart type to use: Scatter plot.\nIn public health analysis, scatter plots are used less frequently than they should be. Common questions this comparison type answers: do states with lower Penta1 coverage also have worse dropout? Does household wealth predict full vaccination? Is there a relationship between birth order and immunisation status? These questions require a scatter plot.\n\nExample: Penta1 coverage versus Penta1-to-Penta3 dropout rate by state\n\npenta_scatter &lt;- data.frame(\n  state = c(\n    \"Anambra\", \"Lagos\", \"Ekiti\", \"Imo\", \"Osun\", \"Ogun\", \"Abia\",\n    \"Rivers\", \"Oyo\", \"Enugu\", \"Edo\", \"Ondo\", \"Cross River\", \"Delta\",\n    \"Ebonyi\", \"Akwa Ibom\", \"Benue\", \"Nasarawa\", \"Plateau\", \"Taraba\",\n    \"FCT Abuja\", \"Niger\", \"Kwara\", \"Kogi\", \"Kaduna\", \"Sokoto\",\n    \"Katsina\", \"Kano\", \"Jigawa\", \"Zamfara\", \"Yobe\", \"Borno\",\n    \"Bauchi\", \"Gombe\", \"Adamawa\", \"Kebbi\"\n  ),\n  penta1 = c(\n    97.1, 93.8, 92.4, 91.5, 92.0, 90.5, 90.1,\n    89.4, 88.6, 87.2, 86.0, 85.7, 83.9, 83.2,\n    82.4, 80.6, 79.8, 76.3, 75.1, 74.6,\n    78.2, 71.5, 70.1, 67.8, 66.4, 63.2,\n    61.8, 61.2, 58.7, 55.4, 51.9, 49.8,\n    47.6, 46.1, 43.8, 39.2\n  ),\n  dropout = c(\n    1.7, 2.2, 2.1, 1.7, 2.5, 2.3, 2.2,\n    3.0, 3.5, 2.5, 2.8, 2.8, 3.5, 3.4,\n    4.1, 3.7, 4.4, 4.2, 4.3, 6.3,\n    3.7, 6.3, 6.3, 6.4, 7.5, 8.9,\n    9.7, 9.5, 9.3, 10.2, 10.1, 10.2,\n    9.4, 9.2, 9.3, 9.1\n  ),\n  zone = c(\n    rep(\"South\", 16),\n    rep(\"North Central\", 5),\n    rep(\"North\", 15)\n  )\n)\n\n\nggplot(penta_scatter, aes(x = penta1, y = dropout, colour = zone)) +\n  geom_point(size = 3, alpha = 0.85) +\n  geom_smooth(method = \"lm\", se = FALSE,\n              colour = \"#555555\", linewidth = 0.7, linetype = \"dashed\") +\n  ggrepel::geom_text_repel(\n    data = penta_scatter |&gt;\n      filter(dropout &gt; 9 | dropout &lt; 2.5 | penta1 &gt; 95),\n    aes(label = state),\n    size = 2.8,\n    max.overlaps = 10\n  ) +\n  scale_x_continuous(\n    limits = c(35, 100),\n    labels = label_percent(scale = 1)\n  ) +\n  scale_y_continuous(\n    limits = c(0, 13),\n    labels = function(x) paste0(x, \"%\")\n  ) +\n  scale_colour_manual(\n    values = c(\n      \"South\"         = \"#43AA8B\",\n      \"North Central\" = \"#F9C74F\",\n      \"North\"         = \"#E84855\"\n    )\n  ) +\n  labs(\n    title = \"States with the lowest access also have the worst retention\",\n    subtitle = \"Penta1 coverage vs Penta1-to-Penta3 dropout rate by state, Nigeria DHS 2023-24\",\n    x = \"Penta1 coverage (%)\",\n    y = \"Penta1-to-Penta3 dropout rate (%)\",\n    colour = \"Region\",\n    caption = \"Source: Nigeria DHS 2023-24 (PR157). Dropout estimated from Penta1 and Penta3 state-level figures.\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title    = element_text(face = \"bold\", size = 12),\n    plot.subtitle = element_text(colour = \"#555555\", size = 10),\n    panel.grid.minor = element_blank(),\n    legend.position = \"bottom\"\n  )\n\n\n\n\n\n\n\nFigure 5: States with lower Penta1 coverage also tend to have higher dropout rates, suggesting that access and retention challenges often coincide.\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis chart uses the ggrepel package for non-overlapping labels. Install it with install.packages(\"ggrepel\") and load it with library(ggrepel) at the top of your script.\n\n\n\n\n\n\n\n\nTip\n\n\n\nDesign decision: Not all state labels are shown. Labelling every point creates clutter and makes the chart harder to read. Here, only the outliers are labelled: states with the highest dropout, lowest coverage, and best-performing states. These are the points a policymaker is most likely to ask about, so they get names.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#the-chart-type-decision-framework",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#the-chart-type-decision-framework",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "The chart type decision framework",
+    "text": "The chart type decision framework\nUse this table as a quick reference when you are deciding which chart to build.\n\n\n\n\n\n\n\n\nYou want to show…\nUse this chart\nAvoid\n\n\n\n\nWhich group is highest or lowest\nHorizontal bar (ordered)\nPie chart, unsorted bars\n\n\nShares of a total\n100% stacked bar\nPie chart (more than 3 segments)\n\n\nHow a value has changed over time\nLine chart\nBar chart for continuous series\n\n\nHow values are spread within a group\nBox plot, dot plot\nBar chart showing only the mean\n\n\nWhether two variables move together\nScatter plot\nDual-axis line chart\n\n\n\nThe most common mismatch in public health reporting is using a bar chart to show change over time when a line chart would make the trend far clearer. The second most common is using a national or zonal average bar chart when a distribution chart would show the range of performance that the average conceals.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#what-to-watch-out-for",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#what-to-watch-out-for",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "What to watch out for",
+    "text": "What to watch out for\nPie charts with more than three segments. The standard recommendation in data visualisation practice is to use a pie chart only when you have two or three segments and one segment is dominant. Beyond three segments, bar charts almost always communicate the proportions more clearly.\nDual-axis charts. A chart with two y-axes, each on a different scale, asks the reader to hold two scales in mind simultaneously. The visual relationship between the two lines appears to change depending on how the scales are set. For most policy audiences, two separate charts are easier to interpret than one dual-axis chart.\n3D charts. Three-dimensional bar and pie charts distort the visual proportions of the data. The bars or slices at the front of the chart appear larger than those at the back, even when the underlying values are identical. This is not a style preference. It is a perceptual distortion that introduces inaccuracy into how the data is read.\nSmoothed trend lines without uncertainty. A smooth line through scattered data points implies more precision than the underlying data supports. When showing trends across a small number of data points (such as DHS survey rounds five years apart), showing the individual points rather than a fitted curve is usually more honest.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#summary",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#summary",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Summary",
+    "text": "Summary\nChart type choice is not a cosmetic decision. The chart type you select determines what comparisons your audience can make, and therefore what conclusions they are able to draw.\nThe framework in this tutorial is simple: identify the comparison type first, then select the chart that encodes it most directly. Ranking needs ordered horizontal bars. Change over time needs lines. Distribution needs dot plots or box plots. Proportions need stacked bars. Relationships need scatter plots.\nThe next tutorial in this series covers small multiples and faceted charts in R: how to show the same comparison across multiple groups without building a separate chart for each one.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
+  },
+  {
+    "objectID": "data-viz-for-policy/03-choosing-the-right-chart-type.html#further-reading",
+    "href": "data-viz-for-policy/03-choosing-the-right-chart-type.html#further-reading",
+    "title": "Tutorial #3: Choosing the Right Chart Type for Policy Data",
+    "section": "Further reading",
+    "text": "Further reading\n\nSchwabish, J. (2021). Better Data Visualizations: A Guide for Scholars, Researchers, and Wonks. Columbia University Press.\nWilke, C.O. (2019). Fundamentals of Data Visualization. O’Reilly. Available free at https://clauswilke.com/dataviz\nCairo, A. (2016). The Truthful Art: Data, Charts, and Maps for Communication. New Riders.",
+    "crumbs": [
+      "Data Viz for Policy",
+      "Tutorial #3: Choosing the Right Chart Type for Policy Data"
+    ]
   },
   {
     "objectID": "data-viz-for-policy/02-structuring-a-data-story-for-policy.html",
@@ -184,224 +349,5 @@
       "Data Viz for Policy",
       "Tutorial #2: Structuring a Data Story for Policy Audiences"
     ]
-  },
-  {
-    "objectID": "data-viz-for-policy/index.html",
-    "href": "data-viz-for-policy/index.html",
-    "title": "Data Visualisation for Policy",
-    "section": "",
-    "text": "Most public health charts inform. This series teaches you to build charts that move people.\nEach tutorial uses publicly available Nigerian and African health datasets with full R code you can run immediately.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Data Visualisation for Policy"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/index.html#tutorials",
-    "href": "data-viz-for-policy/index.html#tutorials",
-    "title": "Data Visualisation for Policy",
-    "section": "Tutorials",
-    "text": "Tutorials\n\n\n\n#\nTitle\nLevel\nStatus\n\n\n\n\n1\nWhy most public health charts fail policymakers\nBeginner\nLive\n\n\n2\nStructuring a data story for policy audiences\nBeginner\nLive\n\n\n3\nChoosing the right chart type for policy data\nBeginner\nComing soon\n\n\n4\nSmall multiples and faceted charts in R\nIntermediate\nComing soon\n\n\n5\nColour, contrast, and accessibility\nIntermediate\nComing soon\n\n\n6\nAnnotations and labels with ggplot2\nIntermediate\nComing soon\n\n\n7\nEnd-to-end: DHIS2 data to decision-ready dashboard\nAdvanced\nComing soon\n\n\n8\nBuilding a reusable reporting template in R\nAdvanced\nComing soon",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Data Visualisation for Policy"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "",
-    "text": "You have spent days cleaning data, running analysis, and building a chart. You present it. The room nods. Nothing changes.\nThis is not a data problem. It is a communication problem — and it starts with your chart title.\nThis tutorial walks through exactly why most public health charts fail to drive decisions, and how to fix them using Nigerian immunisation data from the 2023–24 Demographic and Health Survey (DHS) and R.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#the-problem",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "",
-    "text": "You have spent days cleaning data, running analysis, and building a chart. You present it. The room nods. Nothing changes.\nThis is not a data problem. It is a communication problem — and it starts with your chart title.\nThis tutorial walks through exactly why most public health charts fail to drive decisions, and how to fix them using Nigerian immunisation data from the 2023–24 Demographic and Health Survey (DHS) and R.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-you-will-learn",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "What you will learn",
-    "text": "What you will learn\nBy the end of this tutorial you will be able to:\n\nExplain why chart titles are the most powerful design decision in any policy visual\nReframe descriptive chart labels into decision-driving arguments\nBuild a clean, policy-ready bar chart in R using ggplot2\nUse ggtext to add formatted titles that direct attention\nUse patchwork to create before-and-after chart comparisons",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#prerequisites",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Prerequisites",
-    "text": "Prerequisites\nBefore starting, make sure you have:\n\nR and RStudio installed on your computer\nA basic understanding of R — you can open a script and run code\nThe following packages installed — if you do not have them, run this in your RStudio Console:\n\n\ninstall.packages(c(\"ggplot2\", \"ggtext\", \"patchwork\", \"scales\", \"dplyr\"))",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#data",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#data",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Data",
-    "text": "Data\nWe will use state-level Penta3 coverage estimates from the 2023–24 Nigeria Demographic and Health Survey (DHS) — specifically the percentage of children aged 12–23 months who received three doses of the pentavalent vaccine, by state.\nThe full report is publicly available at dhsprogram.com.\nRather than loading a file, we will enter the data directly into R as a data frame. This makes the tutorial fully self-contained — no downloads needed.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-1-load-your-packages",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-1-load-your-packages",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 1 — Load your packages",
-    "text": "Step 1 — Load your packages\nEvery R session starts by loading the packages you need. Think of packages as toolboxes — each one gives you a specific set of tools.\n\nlibrary(ggplot2)   # for building charts\nlibrary(ggtext)    # for formatted text in chart titles\nlibrary(patchwork) # for combining multiple charts\nlibrary(scales)    # for formatting axis labels as percentages\nlibrary(dplyr)     # for organising and transforming data\n\nEach library() call tells R: “I want to use the tools in this package today.”",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-2-enter-the-data",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-2-enter-the-data",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 2 — Enter the data",
-    "text": "Step 2 — Enter the data\nWe create our dataset using data.frame() — R’s way of building a table directly in your script. The coverage values come from Table 10 of the 2023–24 Nigeria DHS Key Indicators Report (PR157).\n\ncoverage &lt;- data.frame(\n  state = c(\n    \"Abia\", \"Adamawa\", \"Akwa Ibom\", \"Anambra\", \"Bauchi\",\n    \"Bayelsa\", \"Benue\", \"Borno\", \"Cross River\", \"Delta\",\n    \"Ebonyi\", \"Edo\", \"Ekiti\", \"Enugu\", \"FCT\",\n    \"Gombe\", \"Imo\", \"Jigawa\", \"Kaduna\", \"Kano\",\n    \"Katsina\", \"Kebbi\", \"Kogi\", \"Kwara\", \"Lagos\",\n    \"Nasarawa\", \"Niger\", \"Ogun\", \"Ondo\", \"Osun\",\n    \"Oyo\", \"Plateau\", \"Rivers\", \"Sokoto\", \"Taraba\",\n    \"Yobe\", \"Zamfara\"\n  ),\n  penta3_coverage = c(\n    79.7, 59.2, 72.8, 78.6, 58.2,\n    73.4, 44.3, 42.2, 94.6, 85.7,\n    75.9, 84.5, 75.9, 81.6, 84.8,\n    59.8, 83.4, 62.2, 48.0, 47.5,\n    53.3, 13.1, 37.1, 34.9, 87.6,\n    67.1, 36.7, 73.9, 63.9, 67.1,\n    52.6, 47.1, 71.0, 10.9, 47.3,\n    51.3, 12.6\n  )\n)",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-3-inspect-the-data",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-3-inspect-the-data",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 3 — Inspect the data",
-    "text": "Step 3 — Inspect the data\nBefore building any chart, always look at your data first.\n\n# View the first few rows\nhead(coverage)\n\n      state penta3_coverage\n1      Abia            79.7\n2   Adamawa            59.2\n3 Akwa Ibom            72.8\n4   Anambra            78.6\n5    Bauchi            58.2\n6   Bayelsa            73.4\n\n# Quick summary of coverage values\nsummary(coverage$penta3_coverage)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  10.90   47.30   62.20   59.99   75.90   94.60 \n\n\nsummary() gives you the minimum, maximum, and average coverage values at a glance — useful for understanding the spread before you visualise it.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-4-build-the-before-chart",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-4-build-the-before-chart",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 4 — Build the “before” chart",
-    "text": "Step 4 — Build the “before” chart\nThis is the chart most analysts would produce — technically correct, but built for the analyst, not the decision maker.\n\nchart_before &lt;- ggplot(\n  data = coverage,\n  aes(\n    x = reorder(state, penta3_coverage),\n    y = penta3_coverage\n  )\n) +\n  geom_col(fill = \"#AAAAAA\") +\n  coord_flip() +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 100)\n  ) +\n  labs(\n    title = \"Penta3 Coverage by State\",\n    x     = NULL,\n    y     = \"Coverage (%)\"\n  ) +\n  theme_minimal(base_size = 11)\n\nchart_before\n\n\n\n\n\n\n\n\nNotice the title: “Penta3 Coverage by State” It tells you what the chart is. It does not tell you what to do about it.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-5-find-the-argument-in-your-data",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-5-find-the-argument-in-your-data",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 5 — Find the argument in your data",
-    "text": "Step 5 — Find the argument in your data\nBefore building a better chart, we need to identify the decision hiding in the data.\n\n# Calculate the national average\nnational_avg &lt;- mean(coverage$penta3_coverage)\nnational_avg\n\n[1] 59.99459\n\n# States below the national average\ncoverage %&gt;%\n  filter(penta3_coverage &lt; national_avg) %&gt;%\n  arrange(penta3_coverage)\n\n     state penta3_coverage\n1   Sokoto            10.9\n2  Zamfara            12.6\n3    Kebbi            13.1\n4    Kwara            34.9\n5    Niger            36.7\n6     Kogi            37.1\n7    Borno            42.2\n8    Benue            44.3\n9  Plateau            47.1\n10  Taraba            47.3\n11    Kano            47.5\n12  Kaduna            48.0\n13    Yobe            51.3\n14     Oyo            52.6\n15 Katsina            53.3\n16  Bauchi            58.2\n17 Adamawa            59.2\n18   Gombe            59.8\n\n\nfilter() keeps only rows where the condition is true. arrange() sorts them from lowest to highest so we can see the worst performers immediately.\nThis is your argument: a cluster of states — concentrated in the north — are significantly below the national average, and the gap is substantial.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-6-build-the-after-chart",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-6-build-the-after-chart",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 6 — Build the “after” chart",
-    "text": "Step 6 — Build the “after” chart\n\n# Flag each state as above or below the national average\ncoverage &lt;- coverage %&gt;%\n  mutate(below_avg = penta3_coverage &lt; national_avg)\n\nchart_after &lt;- ggplot(\n  data = coverage,\n  aes(\n    x    = reorder(state, penta3_coverage),\n    y    = penta3_coverage,\n    fill = below_avg\n  )\n) +\n  geom_col() +\n  geom_hline(\n    yintercept = national_avg,\n    linetype   = \"dashed\",\n    colour     = \"#333333\",\n    linewidth  = 0.6\n  ) +\n  geom_text(\n    aes(label = paste0(penta3_coverage, \"%\")),\n    hjust    = 1.2,\n    size     = 2.8,\n    colour   = \"white\"\n  ) +\n  coord_flip() +\n  scale_fill_manual(\n    values = c(\"TRUE\" = \"#D85A30\", \"FALSE\" = \"#1D9E75\"),\n    guide  = \"none\"\n  ) +\n  scale_y_continuous(\n    labels = label_percent(scale = 1),\n    limits = c(0, 105)\n  ) +\n  annotate(\n    geom   = \"text\",\n    x      = 3,\n    y      = national_avg + 3,\n    label  = paste0(\"National avg: \", round(national_avg, 1), \"%\"),\n    hjust  = 0,\n    size   = 2.8,\n    colour = \"#333333\"\n  ) +\n  labs(\n    title    = \"**Half of Nigeria's states are below the national Penta3 average**\",\n    subtitle = \"States &lt;span style='color:#D85A30'&gt;below national average&lt;/span&gt; in orange.\",\n    x        = NULL,\n    y        = \"Coverage (%)\",\n    caption  = \"Source: Nigeria DHS 2023–24\"\n  ) +\n  theme_minimal(base_size = 11) +\n  theme(\n    plot.title    = element_markdown(size = 12, lineheight = 1.3),\n    plot.subtitle = element_markdown(size = 9, colour = \"#555555\"),\n    plot.caption  = element_text(size = 8, colour = \"#999999\")\n  )\n\nchart_after\n\n\n\n\n\n\n\n\nTwo things make this chart work differently from the first: element_markdown() lets us bold the title and colour the subtitle text, and the colour split immediately signals which states need attention.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-7-compare-before-and-after",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#step-7-compare-before-and-after",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Step 7 — Compare before and after",
-    "text": "Step 7 — Compare before and after\n\nchart_before + chart_after +\n  plot_annotation(\n    title = \"Same data. Different decisions.\",\n    theme = theme(\n      plot.title = element_text(size = 14, face = \"bold\", hjust = 0.5)\n    )\n  ) +\n  plot_layout(widths = c(1, 1))\n\n\n\n\n\n\n\n\npatchwork makes combining charts as simple as using +. plot_annotation() adds an overarching title across both panels.",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-just-changed",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#what-just-changed",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "What just changed",
-    "text": "What just changed\n\n\n\nElement\nBefore\nAfter\n\n\n\n\nTitle\nDescribes the chart\nMakes an argument\n\n\nColour\nUniform grey\nEncodes meaning\n\n\nReference line\nNone\nNational average anchor\n\n\nAnnotation\nNone\nContextual label\n\n\nSubtitle\nNone\nDirects the reader’s eye\n\n\n\nNone of these changes require more analysis. They require a different question before you build the chart: what do I need my reader to do with this?",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#your-turn",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#your-turn",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Your turn",
-    "text": "Your turn\nTake a chart you have made recently. Look at the title. Ask yourself:\n\nDoes this title describe the chart, or does it make an argument?\nWhat is the one thing I need my reader to decide after seeing this?\nCan I rewrite the title to answer that question directly?",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#further-resources",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#further-resources",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Further resources",
-    "text": "Further resources\n\nggtext documentation\npatchwork documentation\n2023–24 Nigeria DHS Key Indicators Report",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "data-viz-for-policy/01-why-charts-fail-policymakers.html#next-tutorial",
-    "href": "data-viz-for-policy/01-why-charts-fail-policymakers.html#next-tutorial",
-    "title": "Tutorial #1: Why Most Public Health Charts Fail Policymakers",
-    "section": "Next tutorial",
-    "text": "Next tutorial\nTutorial #2: Structuring a data story for policy audiences — how to sequence your findings so policymakers reach the right conclusion before you say a word.\nRead Tutorial #2 →",
-    "crumbs": [
-      "Data Viz for Policy",
-      "Tutorial #1: Why Most Public Health Charts Fail Policymakers"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Data for Impact",
-    "section": "",
-    "text": "Turn complex public health data into decisions that matter.\nEach tutorial is hands-on, uses publicly available African health datasets, and includes full R code you can run immediately."
-  },
-  {
-    "objectID": "index.html#tutorial-series",
-    "href": "index.html#tutorial-series",
-    "title": "Data for Impact",
-    "section": "Tutorial Series",
-    "text": "Tutorial Series\n\n\nData Visualisation for Policy\nHow to build charts, maps, and dashboards that policymakers actually use — not just read.\n8 tutorials · Starting March 2026 · R\nExplore series →\n\n\nSpatial Analysis for Public Health\nMapping disease burden, coverage gaps, and geographic inequities using R and real Nigerian data.\nComing soon\n\n\nAI-Assisted Analysis\nHow to use AI tools to accelerate your analytical workflow without losing rigour.\nComing soon"
-  },
-  {
-    "objectID": "index.html#about-the-author",
-    "href": "index.html#about-the-author",
-    "title": "Data for Impact",
-    "section": "About the Author",
-    "text": "About the Author\n\nOlamide Akeboi is a public health researcher and spatial analyst based in Nigeria, with expertise in spatial modelling, Bayesian geospatial methods, and AI applications in global health.\nLearn more →"
   }
 ]
